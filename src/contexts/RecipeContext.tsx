@@ -58,9 +58,13 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
 
   useEffect(() => {
     const getRecipe = async () => {
+      try {
         const savedRecipes = await fetch(`http://localhost:3001/api/users/2/saved`);
         const jsonRecipes = await savedRecipes.json();
         setSavedRecipes(jsonRecipes)
+      } catch (error) {
+        toast.error('Could not get saved recipes')
+      }
     }
     getRecipe()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -85,6 +89,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   };
 
   const updateSavedRecipes = async (recipe: Recipe) => {
+    try {
     const savedRecipe = savedRecipes.find((savedRecipe) => savedRecipe.id === recipe.id)
     if(savedRecipe) {
       const newSavedRecipes = savedRecipes.filter(
@@ -124,8 +129,10 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     }
       setSavedRecipes((prev) => [...prev, newSavedRecipe]);
       toast.success('Added to saved recipes')
-
     }
+  } catch (error) {
+      toast.error('Something went wrong. Please try again')
+  }
   };
 
   const isFavorite = (recipeId: number) => {

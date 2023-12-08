@@ -20,7 +20,7 @@ const RecipeDetails = () => {
         const jsonRecipe = await recipe.json();
         updateCurrentRecipe(jsonRecipe);
       } catch (error) {
-        toast.error((error as Error).message)
+        toast.error('Something went wrong. Please try again')
       }
 
     };
