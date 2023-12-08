@@ -18,8 +18,8 @@ type RecipeContextProviderProps = {
   export const RecipeProvider = (props: RecipeContextProviderProps) => {
 
   const [searchValues, setSearchValues] = useState<string[]>([])
-  const updateSearchValues = (value:string) => {
-    setSearchValues((searchValues => [...searchValues, value]) )
+  const updateSearchValues = (value: string) => {
+    setSearchValues((prev => [...prev, value]) )
   }
   
     return (
@@ -27,7 +27,6 @@ type RecipeContextProviderProps = {
         value={{
           searchValues,
           updateSearchValues,
-
         }}
       >
         {props.children}
