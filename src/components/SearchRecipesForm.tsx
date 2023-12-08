@@ -1,5 +1,6 @@
 import { SyntheticEvent, useContext } from "react";
 import { RecipeContext } from "../contexts/RecipeContext";
+import toast from "react-hot-toast";
 
 const SearchRecipesForm = () => {
 
@@ -11,6 +12,7 @@ const SearchRecipesForm = () => {
             const searchInput = (form.elements as HTMLFormControlsCollection).namedItem('searchInput') as HTMLInputElement
             const searchValue = searchInput?.value
             if (!searchValue) {
+              toast('Please add an ingredient')
               return
             }
             addSearchValues(searchValue)
