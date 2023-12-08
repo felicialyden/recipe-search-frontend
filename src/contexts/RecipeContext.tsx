@@ -6,27 +6,35 @@ type RecipeContextProviderProps = {
 
   type RecipeContextProps = {
     searchValues: string[];
-    updateSearchValues: (value:string) => void
+    addSearchValues: (value:string) => void
+    removeSearchValues: (value:string) => void
   }
 
 
   export const RecipeContext = createContext<RecipeContextProps>({
     searchValues: [],
-    updateSearchValues: () => {}
+    addSearchValues: () => {},
+    removeSearchValues: () => {}
   });
   
   export const RecipeProvider = (props: RecipeContextProviderProps) => {
 
   const [searchValues, setSearchValues] = useState<string[]>([])
-  const updateSearchValues = (value: string) => {
+  const addSearchValues = (value: string) => {
     setSearchValues((prev => [...prev, value]) )
+  }
+  const removeSearchValues = (value: string) => {
+    const newSearchValues = searchValues.filter((searchValue) => searchValue !== value)
+    console.log(newSearchValues)
+    setSearchValues((newSearchValues))
   }
   
     return (
       <RecipeContext.Provider
         value={{
           searchValues,
-          updateSearchValues,
+          addSearchValues,
+          removeSearchValues
         }}
       >
         {props.children}

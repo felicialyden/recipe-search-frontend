@@ -3,14 +3,14 @@ import { RecipeContext } from "../contexts/RecipeContext";
 
 const SearchRecipesForm = () => {
 
-    const {updateSearchValues} = useContext(RecipeContext)
+    const {addSearchValues} = useContext(RecipeContext)
 
         const handleSubmit = (e: SyntheticEvent) => {
             e.preventDefault()
             const form =  e.target as HTMLFormElement
             const searchInput = (form.elements as HTMLFormControlsCollection).namedItem('searchInput') as HTMLInputElement
             const searchValue = searchInput?.value
-            updateSearchValues(searchValue)
+            addSearchValues(searchValue)
             form.reset()
         }
 
