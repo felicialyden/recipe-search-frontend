@@ -4,8 +4,8 @@ type RecipePreviewProps = {
   id: number;
   title: string;
   img: string;
-  usingIngredients: number;
-  missingIngredients: number;
+  usingIngredients?: number;
+  missingIngredients?: number;
 };
 
 const RecipePreview = ({
@@ -23,8 +23,8 @@ const RecipePreview = ({
         <img className="h-24 m-2" src={img} alt={title} />
         <div className="text-sm pt-3">
           <p className="font-semibold">{title}</p>
-          <p>Ingredients used: {usingIngredients}</p>
-          <p>Ingredients missing: {missingIngredients}</p>
+          {usingIngredients && <p>Ingredients used: {usingIngredients}</p>}
+          {missingIngredients && <p>Ingredients missing: {missingIngredients}</p>}
         </div>
       </li>
       <div className="divider divider-secondary m-0"></div>
