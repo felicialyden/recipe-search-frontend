@@ -96,7 +96,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
         'Content-Type': 'application/json'
       },
       method: "DELETE",
-      body: JSON.stringify(recipe.id)
+      body: JSON.stringify({id: recipe.id})
     })
     if(response.status === 401) {
       toast.error("Unauthorized action")
