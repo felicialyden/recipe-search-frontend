@@ -7,8 +7,6 @@ import { Toaster } from "react-hot-toast";
 import SavedRecipes from "./pages/SavedRecipes";
 
 function App() {
-
-
   return (
     <BrowserRouter>
     <Toaster />
