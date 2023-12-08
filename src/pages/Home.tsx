@@ -11,14 +11,18 @@ const Home = () => {
     const navigate = useNavigate()
 
     const handleSearchRecipes = async() => {
+      try {
         if(!searchValues.length) {
-            toast("Please add at least one ingredient")
-            return
-        }
-        const recipes = await fetch(`http://localhost:3001/api/recipes?ingredients=${searchValues.toString()}`);
-        const jsonRecipes = await recipes.json();
-        updateCurrentRecipes(jsonRecipes)
-        navigate('search')
+          toast("Please add at least one ingredient")
+          return
+      }
+      const recipes = await fetch(`http://localhost:3001/api/recipes?ingredients=${searchValues.toString()}`);
+      const jsonRecipes = await recipes.json();
+      updateCurrentRecipes(jsonRecipes)
+      navigate('search')
+      } catch (error) {
+        toast.error((error as Error).message)
+      }
     }
 
   return (

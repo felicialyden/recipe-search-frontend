@@ -5,6 +5,7 @@ import { RecipeContext } from "../contexts/RecipeContext";
 import Instructions from "../components/Instructions";
 import BackButton from "../components/BackButton";
 import {Recipe} from "../contexts/RecipeContext"
+import toast from "react-hot-toast";
 
 const RecipeDetails = () => {
   const { recipeId } = useParams();
@@ -12,12 +13,16 @@ const RecipeDetails = () => {
 
   useEffect(() => {
     const getRecipe = async () => {
-      const recipe = await fetch(
-        `http://localhost:3001/api/recipes/${recipeId}`
-      );
-      const jsonRecipe = await recipe.json();
+      try {
+        const recipe = await fetch(
+          `http://localhost:3001/api/recipes/${recipeId}`
+        );
+        const jsonRecipe = await recipe.json();
+        updateCurrentRecipe(jsonRecipe);
+      } catch (error) {
+        toast.error((error as Error).message)
+      }
 
-      updateCurrentRecipe(jsonRecipe);
     };
     getRecipe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
