@@ -17,13 +17,15 @@ const RecipePreview = ({
 }: RecipePreviewProps) => {
 
   const navigate = useNavigate();
-  
+
   return (
-    <li onClick={() => navigate(`/${id}`)}>
-      <img src={img} alt={title} />
-      <p>{title}</p>
+    <li className="list-none flex mt-2" onClick={() => navigate(`/${id}`)}>
+      <img className="h-24 m-2" src={img} alt={title} />
+      <div className="text-sm pt-3">
+      <p className="font-semibold">{title}</p>
       <p>Ingredients used: {usingIngredients}</p>
       <p>Ingredients missing: {missingIngredients}</p>
+      </div>
     </li>
   );
 };

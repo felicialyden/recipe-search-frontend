@@ -10,6 +10,9 @@ const SearchRecipesForm = () => {
             const form =  e.target as HTMLFormElement
             const searchInput = (form.elements as HTMLFormControlsCollection).namedItem('searchInput') as HTMLInputElement
             const searchValue = searchInput?.value
+            if (!searchValue) {
+              return
+            }
             addSearchValues(searchValue)
             form.reset()
         }

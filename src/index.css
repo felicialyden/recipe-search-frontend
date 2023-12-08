@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500&family=Inter:wght@200&family=Urbanist:wght@200&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,5 +9,5 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: aliceblue;
+  font-family: 'Albert Sans', sans-serif;
 }
