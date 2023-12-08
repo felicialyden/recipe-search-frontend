@@ -18,14 +18,14 @@ const RecipeDetails = () => {
     getRecipe()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  console.log(currentRecipe)
+
   return (
     <>
     <BackButton />
     <img className="my-5" src={currentRecipe?.image} alt={currentRecipe?.title} />
     <h3 className="text-xl font-bold mb-2">{currentRecipe?.title}</h3>
     <p>Servings: {currentRecipe?.servings}</p>
-    <p>Cooking time mins: {currentRecipe?.readyInMinutes}</p>
+    <p>Cooking time: {currentRecipe?.readyInMinutes} min</p>
     {currentRecipe && <Ingredients ingredients={currentRecipe?.extendedIngredients}/>}
     {currentRecipe && <Instructions steps={currentRecipe?.analyzedInstructions[0].steps}/>}
     </>

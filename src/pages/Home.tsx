@@ -3,6 +3,7 @@ import IngredientsList from "../components/IngredientsList"
 import SearchRecipesForm from "../components/SearchRecipesForm"
 import { RecipeContext } from "../contexts/RecipeContext"
 import { useNavigate } from "react-router-dom"
+import toast from "react-hot-toast"
 
 const Home = () => {
 
@@ -10,6 +11,10 @@ const Home = () => {
     const navigate = useNavigate()
 
     const handleSearchRecipes = async() => {
+        if(!searchValues.length) {
+            toast("Please add at least one ingredient")
+            return
+        }
         const recipes = await fetch(`http://localhost:3001/api/recipes?ingredients=${searchValues.toString()}`);
         const jsonRecipes = await recipes.json();
         updateCurrentRecipes(jsonRecipes)

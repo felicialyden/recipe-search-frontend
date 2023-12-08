@@ -5,7 +5,7 @@ import BackButton from "../components/BackButton";
 
 const SearchResults = () => {
   const { currentRecipes } = useContext(RecipeContext);
-  console.log(currentRecipes);
+
   return (
     <div>
         <BackButton />

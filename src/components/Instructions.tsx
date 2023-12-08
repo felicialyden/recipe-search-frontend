@@ -4,8 +4,8 @@ type InstructionsProps = {
 
 const Instructions = ({ steps }: InstructionsProps) => {
   return <ul className="flex flex-col gap-2">
-     {steps.map((step) => (
-        <li>
+     {steps.map((step, index) => (
+        <li key={index}>
           <p>{step.step}</p>
         </li>
       ))}

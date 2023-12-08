@@ -15,18 +15,20 @@ const RecipePreview = ({
   usingIngredients,
   missingIngredients,
 }: RecipePreviewProps) => {
-
   const navigate = useNavigate();
 
   return (
-    <li className="list-none flex mt-2" onClick={() => navigate(`/${id}`)}>
-      <img className="h-24 m-2" src={img} alt={title} />
-      <div className="text-sm pt-3">
-      <p className="font-semibold">{title}</p>
-      <p>Ingredients used: {usingIngredients}</p>
-      <p>Ingredients missing: {missingIngredients}</p>
-      </div>
-    </li>
+    <>
+      <li className="list-none flex mt-2" onClick={() => navigate(`/${id}`)}>
+        <img className="h-24 m-2" src={img} alt={title} />
+        <div className="text-sm pt-3">
+          <p className="font-semibold">{title}</p>
+          <p>Ingredients used: {usingIngredients}</p>
+          <p>Ingredients missing: {missingIngredients}</p>
+        </div>
+      </li>
+      <div className="divider divider-secondary m-0"></div>
+    </>
   );
 };
 

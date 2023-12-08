@@ -11,3 +11,8 @@
   box-sizing: border-box;
   font-family: 'Albert Sans', sans-serif;
 }
+
+.recipe-search-body {
+  height: 100vh;
+  background-color: #FAE4C0;
+}
