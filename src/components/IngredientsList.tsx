@@ -3,6 +3,7 @@ import { RecipeContext } from "../contexts/RecipeContext";
 
 const IngredientsList = () => {
   const { searchValues, removeSearchValues } = useContext(RecipeContext);
+  
   return (
     <ul>
       {searchValues.map((value) => (

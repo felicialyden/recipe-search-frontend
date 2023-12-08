@@ -3,7 +3,7 @@ import { RecipeContext } from "../contexts/RecipeContext";
 
 const SearchRecipesForm = () => {
 
-    const {addSearchValues} = useContext(RecipeContext)
+    const { addSearchValues } = useContext(RecipeContext)
 
         const handleSubmit = (e: SyntheticEvent) => {
             e.preventDefault()
