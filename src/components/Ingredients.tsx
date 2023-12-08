@@ -4,7 +4,7 @@ type IngredientsProps = {
 
 const Ingredients = ({ ingredients }: IngredientsProps) => {
   return (
-    <ul className="my-7 flex flex-col gap-2">
+    <ul className="mb-7 flex flex-col gap-2">
       {ingredients.map((ingredient, index) => (
         <li key={index}>
           <p>{ingredient.original}</p>

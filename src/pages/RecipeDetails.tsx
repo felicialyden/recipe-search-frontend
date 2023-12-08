@@ -25,8 +25,10 @@ const RecipeDetails = () => {
     <img className="my-5" src={currentRecipe?.image} alt={currentRecipe?.title} />
     <h3 className="text-xl font-bold mb-2">{currentRecipe?.title}</h3>
     <p>Servings: {currentRecipe?.servings}</p>
-    <p>Cooking time: {currentRecipe?.readyInMinutes} min</p>
+    <p className="mb-7">Cooking time: {currentRecipe?.readyInMinutes} min</p>
+    <h4 className="text-lg font-bold my-2">Ingredients</h4>
     {currentRecipe && <Ingredients ingredients={currentRecipe?.extendedIngredients}/>}
+    <h4 className="text-lg font-bold my-2">Instructions</h4>
     {currentRecipe && <Instructions steps={currentRecipe?.analyzedInstructions[0].steps}/>}
     </>
   );

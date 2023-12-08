@@ -7,8 +7,8 @@ const IngredientsList = () => {
   return (
     <ul className="mt-5">
       {searchValues.map((value) => (
-        <>
-          <li className="flex text-lg items-center gap-1" key={value}>
+        <li key={value}>
+          <div className="flex text-lg items-center gap-1" >
             <p>{value}</p>
             <button
               onClick={() => removeSearchValues(value)}
@@ -29,9 +29,9 @@ const IngredientsList = () => {
                 />
               </svg>
             </button>
-          </li>
-          <div className="divider divider-secondary m-0"></div>
-        </>
+          </div>
+          <div className="divider divider-secondary m-0" key={`divider${value}`}></div>
+        </li>
       ))}
     </ul>
   );

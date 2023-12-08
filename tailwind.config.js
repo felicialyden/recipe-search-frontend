@@ -9,7 +9,7 @@ export default {
   daisyui: {
     themes: [{
       mytheme: {
-        "primary": "#DE9F87",
+        "primary": "#D0A290",
         "secondary": "#A56B55",
         "neutral": "#FAE4C0",
         "success": "#769F78",

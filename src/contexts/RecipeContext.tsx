@@ -48,7 +48,6 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     const newSearchValues = searchValues.filter(
       (searchValue) => searchValue !== value
     );
-    console.log(newSearchValues);
     setSearchValues(newSearchValues);
   };
 
