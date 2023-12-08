@@ -1,13 +1,13 @@
 type IngredientsProps = {
-    ingredients: string[]
+    ingredients: { original: string }[];
 }
 
 const Ingredients = ({ ingredients }: IngredientsProps) => {
   return (
-    <ul>
+    <ul className="my-7 flex flex-col gap-2">
       {ingredients.map((ingredient) => (
         <li>
-          <p>{ingredient}</p>
+          <p>{ingredient.original}</p>
         </li>
       ))}
     </ul>

@@ -3,7 +3,7 @@ type InstructionsProps = {
 };
 
 const Instructions = ({ steps }: InstructionsProps) => {
-  return <ul>
+  return <ul className="flex flex-col gap-2">
      {steps.map((step) => (
         <li>
           <p>{step.step}</p>
