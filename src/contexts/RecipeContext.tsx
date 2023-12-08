@@ -106,6 +106,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
       return
     }
       setSavedRecipes(newSavedRecipes);
+      toast.success('Removed from saved recipes')
 
     } else {
       const newSavedRecipe = {id: recipe.id, title: recipe.title, image: recipe.image}
@@ -122,6 +123,8 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
       return
     }
       setSavedRecipes((prev) => [...prev, newSavedRecipe]);
+      toast.success('Added to saved recipes')
+
     }
   };
 
