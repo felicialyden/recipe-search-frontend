@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 type RecipeContextProviderProps = {
   children: React.ReactNode;
@@ -83,16 +84,43 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     setCurrentRecipe(recipe);
   };
 
-  const updateSavedRecipes = (recipe: Recipe) => {
+  const updateSavedRecipes = async (recipe: Recipe) => {
     const savedRecipe = savedRecipes.find((savedRecipe) => savedRecipe.id === recipe.id)
-    console.log(recipe)
     if(savedRecipe) {
       const newSavedRecipes = savedRecipes.filter(
         (savedRecipe) => savedRecipe.id !== recipe.id
       );
+      const response = await fetch(`http://localhost:3001/api/users/2/saved`,{
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "DELETE",
+      body: JSON.stringify(recipe.id)
+    })
+    if(response.status === 401) {
+      toast.error("Unauthorized action")
+
+    } else if(!response.ok) {
+      toast.error("Something went wrong. Please try again")
+      return
+    }
       setSavedRecipes(newSavedRecipes);
+
     } else {
       const newSavedRecipe = {id: recipe.id, title: recipe.title, image: recipe.image}
+      const response = await fetch(`http://localhost:3001/api/users/2/saved`,{
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify(newSavedRecipe)
+    })
+    if(!response.ok) {
+      toast.error("Recipe could not be saved")
+      return
+    }
       setSavedRecipes((prev) => [...prev, newSavedRecipe]);
     }
   };
