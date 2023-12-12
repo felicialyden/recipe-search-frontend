@@ -15,7 +15,7 @@ const Home = () => {
           toast("Please add at least one ingredient")
           return
       }
-      const recipes = await fetch(`http://localhost:3001/api/recipes?ingredients=${searchValues.toString()}`);
+      const recipes = await fetch(`https://recipe-search-app-production.up.railway.app/api/recipes?ingredients=${searchValues.toString()}`);
       const jsonRecipes = await recipes.json();
       updateCurrentRecipes(jsonRecipes)
       navigate('/search')

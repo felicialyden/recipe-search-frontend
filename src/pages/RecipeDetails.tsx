@@ -15,7 +15,7 @@ const RecipeDetails = () => {
     const getRecipe = async () => {
       try {
         const recipe = await fetch(
-          `http://localhost:3001/api/recipes/${recipeId}`
+          `https://recipe-search-app-production.up.railway.app/api/recipes/${recipeId}`
         );
         const jsonRecipe = await recipe.json();
         updateCurrentRecipe(jsonRecipe);
