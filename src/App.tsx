@@ -8,11 +8,11 @@ import SavedRecipes from "./pages/SavedRecipes";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/recipe-search-frontend">
     <Toaster />
       <Navbar />
       <main className="p-5 bg-neutral">
-        <Routes>
+        <Routes >
           <Route path="/" Component={Home}></Route>
           <Route path="/search" Component={SearchResults}></Route>
           <Route path="/:recipeId" Component={RecipeDetails}></Route>
