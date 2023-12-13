@@ -95,7 +95,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
       const newSavedRecipes = savedRecipes.filter(
         (savedRecipe) => savedRecipe.id !== recipe.id
       );
-      const response = await fetch(`https://recipe-search-app-production.up.railway.app/users/2/saved`,{
+      const response = await fetch(`https://recipe-search-app-production.up.railway.app/api/users/2/saved`,{
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -115,7 +115,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
 
     } else {
       const newSavedRecipe = {id: recipe.id, title: recipe.title, image: recipe.image}
-      const response = await fetch(`https://recipe-search-app-production.up.railway.app/users/2/saved`,{
+      const response = await fetch(`https://recipe-search-app-production.up.railway.app/api/users/2/saved`,{
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
