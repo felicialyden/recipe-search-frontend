@@ -32,7 +32,9 @@ const RecipeDetails = () => {
 
   return (
     <>
-      <BackButton />
+    <BackButton />
+    <div className="max-w-lg container">
+      
       <img
         className="my-5"
         src={currentRecipe?.image}
@@ -68,6 +70,7 @@ const RecipeDetails = () => {
         :
         <p>No instructions available</p>
       }
+    </div>
     </>
   );
 };
