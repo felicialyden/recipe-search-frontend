@@ -25,7 +25,7 @@ const Home = () => {
     }
 
   return (
-    <div className="flex flex-col gap-2 p-7">
+    <div className="flex flex-col gap-2 p-7 max-w-lg container">
     <h1 className="text-4xl text-center mb-5">What can I cook?</h1>
     <SearchRecipesForm />
     <IngredientsList />

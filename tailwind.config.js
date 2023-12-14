@@ -3,6 +3,13 @@ export default {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
     extend: {},
+    container: {
+      center: true,
+    },
+    screens: {
+      'tablet': '640px',
+      'laptop': '1024px',
+    }
   },
   // eslint-disable-next-line no-undef
   plugins: [require("daisyui")],
@@ -16,7 +23,8 @@ export default {
         "error": "#C1564B",
         "base-100": "#ffffff",
       },
-    }
+    },
+    
     ]
   }
 }

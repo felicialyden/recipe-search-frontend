@@ -21,7 +21,7 @@ const SearchRecipesForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
-      <label className="form-control w-full max-w-xs">
+      <label className="form-control w-full">
         <div className="label">
           <span className="label-text">What do you want to cook with?</span>
         </div>
@@ -29,7 +29,7 @@ const SearchRecipesForm = () => {
           type="text"
           name="searchInput"
           placeholder="Add ingredients one by one"
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full"
         />
       </label>
       <button className="btn btn-sm btn-primary mt-2 self-end">Add ingredient</button>

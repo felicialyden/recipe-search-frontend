@@ -30,8 +30,6 @@ const RecipeDetails = () => {
     updateSavedRecipes(currentRecipe as Recipe)
   }
 
-  console.log(currentRecipe)
-
   return (
     <>
       <BackButton />
