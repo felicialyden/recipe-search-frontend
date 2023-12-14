@@ -22,7 +22,6 @@ const RecipeDetails = () => {
       } catch (error) {
         toast.error('Something went wrong. Please try again')
       }
-
     };
     getRecipe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -30,6 +29,8 @@ const RecipeDetails = () => {
   const handleSaveButtonClicked = () => {
     updateSavedRecipes(currentRecipe as Recipe)
   }
+
+  console.log(currentRecipe)
 
   return (
     <>
@@ -64,9 +65,11 @@ const RecipeDetails = () => {
         <Ingredients ingredients={currentRecipe?.extendedIngredients} />
       )}
       <h4 className="text-lg font-bold my-2">Instructions</h4>
-      {currentRecipe && (
+      {currentRecipe?.analyzedInstructions[0]? 
         <Instructions steps={currentRecipe?.analyzedInstructions[0].steps} />
-      )}
+        :
+        <p>No instructions available</p>
+      }
     </>
   );
 };
