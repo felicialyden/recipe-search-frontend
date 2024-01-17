@@ -5,7 +5,7 @@ import Dropdown from "./Dropdown";
 
 const SearchRecipesForm = () => {
 
-    const { addSearchValues } = useContext(RecipeContext)
+    const { addIngredients } = useContext(RecipeContext)
 
         const handleSubmit = (e: SyntheticEvent) => {
             e.preventDefault()
@@ -16,7 +16,7 @@ const SearchRecipesForm = () => {
               toast('Please add an ingredient')
               return
             }
-            addSearchValues(searchValue)
+            addIngredients(searchValue)
             form.reset()
         }
 
@@ -34,8 +34,8 @@ const SearchRecipesForm = () => {
         />
       </label>
       <div className="flex gap-2 pt-2">
-      <Dropdown options={['Vegetarian', 'Vegan', 'Pescetarian', 'Gluten free', 'Low FODMAP']} title='Diet'></Dropdown>
-      <Dropdown options={['Italian', 'Mexican']} title='Cuisine'></Dropdown>
+      <Dropdown options={['Any', 'Vegetarian', 'Vegan', 'Pescetarian', 'Gluten free', 'Low FODMAP']} title='Diet'></Dropdown>
+      <Dropdown options={['Any', 'Italian', 'Mexican']} title='Cuisine'></Dropdown>
       </div>
       <button className="btn btn-sm btn-primary mt-2 self-end">Add ingredient</button>
     </form>

@@ -9,13 +9,14 @@ const Home = () => {
     const { searchValues, clearSearchValues, updateCurrentRecipes } = useContext(RecipeContext)
     const navigate = useNavigate()
     const url = import.meta.env.VITE_BACKEND_URL
+
     const handleSearchRecipes = async() => {
       try {
-        if(!searchValues.length) {
+        if(!searchValues.ingredients.length) {
           toast("Please add at least one ingredient")
           return
       }
-      const recipes = await fetch(`${url}/api/recipes?ingredients=${searchValues.toString()}`);
+      const recipes = await fetch(`${url}/api/recipes?ingredients=${searchValues.ingredients.toString()}`);
       const jsonRecipes = await recipes.json();
       console.log(jsonRecipes)
       updateCurrentRecipes(jsonRecipes.results)

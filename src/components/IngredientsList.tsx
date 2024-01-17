@@ -6,12 +6,12 @@ const IngredientsList = () => {
 
   return (
     <ul className="mt-5">
-      {searchValues.map((value) => (
-        <li key={value}>
+      {searchValues.ingredients.map((ingredient) => (
+        <li key={ingredient}>
           <div className="flex text-lg items-center gap-1" >
-            <p>{value}</p>
+            <p>{ingredient}</p>
             <button
-              onClick={() => removeSearchValues(value)}
+              onClick={() => removeSearchValues(ingredient)}
               className="btn btn-square btn-ghost btn-xs"
             >
               <svg
@@ -30,7 +30,7 @@ const IngredientsList = () => {
               </svg>
             </button>
           </div>
-          <div className="divider divider-secondary m-0" key={`divider${value}`}></div>
+          <div className="divider divider-secondary m-0" key={`divider${ingredient}`}></div>
         </li>
       ))}
     </ul>
