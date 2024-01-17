@@ -1,6 +1,7 @@
 import { SyntheticEvent, useContext } from "react";
 import { RecipeContext } from "../contexts/RecipeContext";
 import toast from "react-hot-toast";
+import Dropdown from "./Dropdown";
 
 const SearchRecipesForm = () => {
 
@@ -32,6 +33,10 @@ const SearchRecipesForm = () => {
           className="input input-bordered w-full"
         />
       </label>
+      <div className="flex gap-2 pt-2">
+      <Dropdown options={['Vegetarian', 'Vegan', 'Pescetarian', 'Gluten free', 'Low FODMAP']} title='Diet'></Dropdown>
+      <Dropdown options={['Italian', 'Mexican']} title='Cuisine'></Dropdown>
+      </div>
       <button className="btn btn-sm btn-primary mt-2 self-end">Add ingredient</button>
     </form>
   );
