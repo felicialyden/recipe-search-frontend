@@ -8,20 +8,21 @@ import toast from "react-hot-toast"
 const Home = () => {
     const { searchValues, clearSearchValues, updateCurrentRecipes } = useContext(RecipeContext)
     const navigate = useNavigate()
-
+    const url = import.meta.env.VITE_BACKEND_URL
     const handleSearchRecipes = async() => {
       try {
         if(!searchValues.length) {
           toast("Please add at least one ingredient")
           return
       }
-      const recipes = await fetch(`https://recipe-search-app-production.up.railway.app/api/recipes?ingredients=${searchValues.toString()}`);
+      const recipes = await fetch(`${url}/api/recipes?ingredients=${searchValues.toString()}`);
       const jsonRecipes = await recipes.json();
       console.log(jsonRecipes)
-      updateCurrentRecipes(jsonRecipes)
+      updateCurrentRecipes(jsonRecipes.results)
       clearSearchValues()
       navigate('/search')
       } catch (error) {
+        console.log(error)
         toast.error('Something went wrong. Please try again')
       }
     }
