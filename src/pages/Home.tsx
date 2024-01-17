@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 
 const Home = () => {
-    const { searchValues, updateCurrentRecipes } = useContext(RecipeContext)
+    const { searchValues, clearSearchValues, updateCurrentRecipes } = useContext(RecipeContext)
     const navigate = useNavigate()
 
     const handleSearchRecipes = async() => {
@@ -17,7 +17,9 @@ const Home = () => {
       }
       const recipes = await fetch(`https://recipe-search-app-production.up.railway.app/api/recipes?ingredients=${searchValues.toString()}`);
       const jsonRecipes = await recipes.json();
+      console.log(jsonRecipes)
       updateCurrentRecipes(jsonRecipes)
+      clearSearchValues()
       navigate('/search')
       } catch (error) {
         toast.error('Something went wrong. Please try again')

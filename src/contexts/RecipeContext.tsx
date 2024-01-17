@@ -28,6 +28,7 @@ type RecipeContextProps = {
   searchValues: string[];
   addSearchValues: (value: string) => void;
   removeSearchValues: (value: string) => void;
+  clearSearchValues: () => void;
   currentRecipes: Recipe[];
   updateCurrentRecipes: (recipes: Recipe[]) => void;
   currentRecipe: Recipe | null;
@@ -41,6 +42,7 @@ export const RecipeContext = createContext<RecipeContextProps>({
   searchValues: [],
   addSearchValues: () => {},
   removeSearchValues: () => {},
+  clearSearchValues: () => {},
   currentRecipes: [],
   updateCurrentRecipes: () => {},
   currentRecipe: null,
@@ -73,6 +75,11 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   const addSearchValues = (value: string) => {
     setSearchValues((prev) => [...prev, value]);
   };
+
+  const clearSearchValues = () => {
+    setSearchValues([]);
+  };
+
   const removeSearchValues = (value: string) => {
     const newSearchValues = searchValues.filter(
       (searchValue) => searchValue !== value
@@ -148,6 +155,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
         searchValues,
         addSearchValues,
         removeSearchValues,
+        clearSearchValues,
         currentRecipes,
         updateCurrentRecipes,
         currentRecipe,
