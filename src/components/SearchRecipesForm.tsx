@@ -27,18 +27,20 @@ const SearchRecipesForm = () => {
         <div className="label">
           <span className="label-text">What do you want to cook with?</span>
         </div>
+        <div className="flex">
         <input
           type="text"
           name="searchInput"
           placeholder="Add ingredients one by one"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full rounded-tr-none rounded-br-none"
         />
+        <button className="btn btn-md btn-primary rounded-tl-none rounded-bl-none">Add</button>
+        </div>
       </label>
-      <div className="flex gap-2 pt-2">
+      <div className="flex gap-2 items-center pt-2">
       <Dropdown options={dietOptions} title='Diet'></Dropdown>
       <Dropdown options={cuisineOptions} title='Cuisine'></Dropdown>
       </div>
-      <button className="btn btn-sm btn-primary mt-2 self-end">Add ingredient</button>
     </form>
   );
 };
