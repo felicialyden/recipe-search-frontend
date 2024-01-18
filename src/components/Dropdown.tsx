@@ -21,7 +21,7 @@ const Dropdown = ({ options, title }: DropdownProps) => {
 
   return (
     <div className="dropdown">
-      <div tabIndex={0} role="button" className="m-1 btn bg-amber-50 btn-sm">
+      <div tabIndex={0} role="button" className="m-1 btn btn-secondary btn-sm">
         {`${title}: ${selectedOption}`}
       </div>
       <ul

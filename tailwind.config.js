@@ -18,7 +18,8 @@ export default {
     themes: [{
       mytheme: {
         "primary": "#D0A290",
-        "secondary": "#A56B55",
+        "secondary": "#fff8e1",
+        "accent": "#A56B55",
         "neutral": "#FAE4C0",
         "success": "#769F78",
         "error": "#C1564B",

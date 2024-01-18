@@ -7,7 +7,7 @@ const Instructions = ({ steps }: InstructionsProps) => {
      {steps.map((step, index) => (
         <li key={index}>
           <p>{step.step}</p>
-          <div className="divider divider-secondary my-1"></div>
+          <div className="divider divider-accent my-1"></div>
         </li>
       ))}
   </ul>;

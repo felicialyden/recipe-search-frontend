@@ -30,7 +30,7 @@ const IngredientsList = () => {
               </svg>
             </button>
           </div>
-          <div className="divider divider-secondary m-0" key={`divider${ingredient}`}></div>
+          <div className="divider divider-accent m-0" key={`divider${ingredient}`}></div>
         </li>
       ))}
     </ul>
