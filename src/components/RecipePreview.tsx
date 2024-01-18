@@ -5,16 +5,20 @@ type RecipePreviewProps = {
   id: number;
   title: string;
   img: string;
-  usingIngredients?: number;
-  missingIngredients?: number;
+  usedIngredientsCount?: number;
+  missingIngredientsCount?: number;
+  usedIngredientsList: {name: string}[]
+  missingIngredientsList: {name: string}[]
 };
 
 const RecipePreview = ({
   id,
   title,
   img,
-  usingIngredients,
-  missingIngredients,
+  usedIngredientsCount,
+  missingIngredientsCount,
+  usedIngredientsList,
+  missingIngredientsList
 }: RecipePreviewProps) => {
   const navigate = useNavigate();
 
@@ -29,10 +33,10 @@ const RecipePreview = ({
           <p className="font-semibold">{title}</p>
           <div className="flex gap-2">
             <div>
-              {usingIngredients && <p>Ingredients used: {usingIngredients}</p>}
-              {missingIngredients && (<p>Ingredients missing: {missingIngredients}</p>)}
+              {usedIngredientsCount && <p>Ingredients used: {usedIngredientsCount}</p>}
+              {missingIngredientsCount && (<p>Ingredients missing: {missingIngredientsCount}</p>)}
             </div>
-            <RecipeInfoPopup />
+            <RecipeInfoPopup usedIngredients={usedIngredientsList} missingIngredients={missingIngredientsList}/>
           </div>
         </div>
       </li>

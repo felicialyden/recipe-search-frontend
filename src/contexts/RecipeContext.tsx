@@ -13,6 +13,8 @@ export type Recipe = {
   servings: number;
   usedIngredientCount: number;
   missedIngredientCount: number;
+  usedIngredients: {name: string}[]
+  missedIngredients: {name: string}[]
   extendedIngredients: { original: string }[];
   analyzedInstructions: { steps: { step: string }[] }[];
 };

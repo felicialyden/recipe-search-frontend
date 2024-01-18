@@ -1,5 +1,11 @@
 
-const RecipeInfoPopup = () => {
+type RecipeInfoPopupProps = {
+    usedIngredients: {name: string}[]
+    missingIngredients: {name: string}[]
+}
+
+
+const RecipeInfoPopup = ({usedIngredients, missingIngredients}: RecipeInfoPopupProps) => {
   return (
     <div onClick={(e) => e.stopPropagation()} className="dropdown dropdown-hover">
   <div tabIndex={0} role="button" className="pt-px">
@@ -8,7 +14,13 @@ const RecipeInfoPopup = () => {
   <div tabIndex={0} className="card compact dropdown-content z-[1] shadow bg-base-100 rounded-box w-64">
     <div tabIndex={0} className="card-body">
       <h2>Ingredients used:</h2>
+      <ul>
+        {usedIngredients.map((ingredient) => <li key={ingredient.name}>{ingredient.name}</li>)}
+      </ul>
       <h2>Ingredients missing:</h2>
+      <ul>
+        {missingIngredients.map((ingredient) => <li key={ingredient.name}>{ingredient.name}</li>)}
+      </ul>
     </div>
   </div>
 </div>

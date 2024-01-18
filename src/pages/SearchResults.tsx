@@ -18,8 +18,10 @@ const SearchResults = () => {
           id={recipe.id}
           title={recipe.title}
           img={recipe.image}
-          usingIngredients={recipe.usedIngredientCount}
-          missingIngredients={recipe.missedIngredientCount}
+          usedIngredientsCount={recipe.usedIngredientCount}
+          missingIngredientsCount={recipe.missedIngredientCount}
+          usedIngredientsList={recipe.usedIngredients}
+          missingIngredientsList={recipe.missedIngredients}
         />
       ))}
     </div>
