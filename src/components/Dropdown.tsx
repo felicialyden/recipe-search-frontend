@@ -26,7 +26,7 @@ const Dropdown = ({ options, title }: DropdownProps) => {
       </div>
       <ul
         tabIndex={0}
-        className="block p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box max-w-52 max-h-52 overflow-y-scroll"
+        className="block shadow menu dropdown-content z-[1] bg-base-100 rounded-box max-w-52 max-h-52 overflow-y-scroll"
       >
         {options.map((option) => (
           <li
@@ -38,7 +38,7 @@ const Dropdown = ({ options, title }: DropdownProps) => {
           </li>
         ))}
       </ul>
-    </div>
+      </div>
   );
 };
 

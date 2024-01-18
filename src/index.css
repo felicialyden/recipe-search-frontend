@@ -16,3 +16,16 @@
   height: 100vh;
   background-color: #FAE4C0;
 }
+
+ul::-webkit-scrollbar-thumb {
+  background-color: rgb(161, 155, 155);
+  border: 8px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 20px;
+}
+
+ul::-webkit-scrollbar {
+  width: 24px;
+}
+
+
