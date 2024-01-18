@@ -1,16 +1,13 @@
 export const dietOptions = ['Any', 'Vegetarian', 'Vegan', 'Pescetarian', 'Gluten free', 'Low FODMAP']
 export const cuisineOptions = [
     'Any', 
-    'African', 
     'Asian', 
     'American', 
     'British', 
     'Cajun', 
-    'Caribbean',
     'Chinese',
     'Eastern European',
     'French',
-    'German',
     'Greek',
     'Indian',
     'Italian',

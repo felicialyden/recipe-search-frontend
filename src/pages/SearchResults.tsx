@@ -10,7 +10,9 @@ const SearchResults = () => {
     <div>
         <BackButton />
       <h2 className="text-3xl my-5">You can cook:</h2>
-      {currentRecipes.map((recipe) => (
+      {currentRecipes.length === 0 ? 
+      <p>Could not find any matching recipes</p> :
+      currentRecipes.map((recipe) => (
         <RecipePreview
           key={recipe.id}
           id={recipe.id}
