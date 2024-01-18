@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { IngredientList } from "../components/RecipePreview";
 
 type RecipeContextProviderProps = {
   children: React.ReactNode;
@@ -13,8 +14,8 @@ export type Recipe = {
   servings: number;
   usedIngredientCount: number;
   missedIngredientCount: number;
-  usedIngredients: {name: string}[]
-  missedIngredients: {name: string}[]
+  usedIngredients: IngredientList[]
+  missedIngredients: IngredientList[]
   extendedIngredients: { original: string }[];
   analyzedInstructions: { steps: { step: string }[] }[];
 };

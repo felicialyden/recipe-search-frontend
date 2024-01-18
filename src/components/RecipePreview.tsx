@@ -7,9 +7,13 @@ type RecipePreviewProps = {
   img: string;
   usedIngredientsCount?: number;
   missingIngredientsCount?: number;
-  usedIngredientsList: {name: string}[]
-  missingIngredientsList: {name: string}[]
+  usedIngredientsList?: IngredientList[];
+  missingIngredientsList?: IngredientList[];
 };
+
+export type IngredientList = {
+  name: string
+}
 
 const RecipePreview = ({
   id,
@@ -18,7 +22,7 @@ const RecipePreview = ({
   usedIngredientsCount,
   missingIngredientsCount,
   usedIngredientsList,
-  missingIngredientsList
+  missingIngredientsList,
 }: RecipePreviewProps) => {
   const navigate = useNavigate();
 
@@ -33,10 +37,21 @@ const RecipePreview = ({
           <p className="font-semibold">{title}</p>
           <div className="flex gap-2 pt-2">
             <div>
-              {usedIngredientsCount && <p>Ingredients used: {usedIngredientsCount}</p>}
-              {missingIngredientsCount && (<p>Ingredients missing: {missingIngredientsCount}</p>)}
+              {usedIngredientsCount && (
+                <p>Ingredients used: {usedIngredientsCount}</p>
+              )}
+              {missingIngredientsCount && (
+                <p>Ingredients missing: {missingIngredientsCount}</p>
+              )}
             </div>
-            <RecipeInfoPopup usedIngredients={usedIngredientsList} missingIngredients={missingIngredientsList}/>
+            <RecipeInfoPopup
+              usedIngredients={
+                usedIngredientsList as IngredientList[]
+              }
+              missingIngredients={
+                missingIngredientsList as IngredientList[]
+              }
+            />
           </div>
         </div>
       </li>
