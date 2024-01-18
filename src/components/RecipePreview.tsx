@@ -44,14 +44,14 @@ const RecipePreview = ({
                 <p>Ingredients missing: {missingIngredientsCount}</p>
               )}
             </div>
-            <RecipeInfoPopup
+            {usedIngredientsList && <RecipeInfoPopup
               usedIngredients={
                 usedIngredientsList as IngredientList[]
               }
               missingIngredients={
                 missingIngredientsList as IngredientList[]
               }
-            />
+            />}
           </div>
         </div>
       </li>
