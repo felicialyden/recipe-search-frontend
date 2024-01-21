@@ -1,17 +1,27 @@
 import { SyntheticEvent, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
   const { updateLoginState, signUpUser } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const handleSignup = async(e: SyntheticEvent) => {
     e.preventDefault()
     const form = e.target as HTMLFormElement
     const username = (form.elements.namedItem('signup-username') as HTMLInputElement).value
     const password = (form.elements.namedItem('signup-password') as HTMLInputElement).value
-    const response = await signUpUser(username, password)
-    console.log(response)
-    form.reset()
+    try {
+      const response = await signUpUser(username, password)
+      console.log(response)
+      form.reset()
+      toast.success("Successfully signed up")
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 
   return (
