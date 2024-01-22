@@ -121,13 +121,13 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     console.log(recipe, userId)
     try {
       const newSavedRecipe = {id: recipe.id, title: recipe.title, image: recipe.image}
-      const response = await fetch(`${url}/api/recipes/saved`,{
+      const response = await fetch(`${url}/api/users/${userId}/saved`,{
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       method: "POST",
-      body: JSON.stringify({...newSavedRecipe, userId})
+      body: JSON.stringify(newSavedRecipe)
     })
     if(!response.ok) {
       toast.error("Recipe could not be saved")

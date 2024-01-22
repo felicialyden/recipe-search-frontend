@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import toast from "react-hot-toast";
 
 type AuthContextProviderProps = {
   children: React.ReactNode;
@@ -61,12 +62,14 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
         body: JSON.stringify({ email, password }),
       });
       const json = await response.json()
-      console.log(json);
+      if (json.error) {
+        console.log('error')
+        throw json.error
+      }
       setLoggedInUser(JSON.stringify(json))
       localStorage.setItem('loggedInUser', JSON.stringify(json))
       return {success: true}
     } catch (error) {
-      console.log(error);
       return {success: false, error}
     }
   };
@@ -82,12 +85,13 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
         body: JSON.stringify({ email, password }),
       });
       const json = await response.json()
-      console.log(json);
+      if (json.error) {
+        throw json.error
+      }
       setLoggedInUser(JSON.stringify(json))
       localStorage.setItem('loggedInUser', JSON.stringify(json))
       return {success: true}
     } catch (error) {
-      console.log(error);
       return {success: false, error}
     }
   };
@@ -104,11 +108,15 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
       });
       const json = await response.json()
       console.log(json);
+      if (json.error) {
+        throw json.error
+      }
       setLoggedInUser(null)
       localStorage.removeItem('loggedInUser')
+      toast.success("Successfully logged out")
       return {success: true}
     } catch (error) {
-      console.log(error);
+      toast.error(`${error}`)
       return {success: false, error}
     }
   };

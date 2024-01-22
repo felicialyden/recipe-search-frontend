@@ -3,6 +3,12 @@ import { AuthContext } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+
+type Response = {
+  success: boolean,
+  error?: string
+}
+
 const SignupForm = () => {
   const { updateLoginState, signUpUser } = useContext(AuthContext)
   const navigate = useNavigate()
@@ -13,13 +19,17 @@ const SignupForm = () => {
     const username = (form.elements.namedItem('signup-username') as HTMLInputElement).value
     const password = (form.elements.namedItem('signup-password') as HTMLInputElement).value
     try {
-      const response = await signUpUser(username, password)
+      const response = await signUpUser(username, password) as Response
       console.log(response)
+      if(!response.success) {
+        throw response.error
+      }
       form.reset()
       toast.success("Successfully signed up")
       navigate('/')
     } catch (error) {
       console.log(error)
+      toast.error(`${error}`)
     }
 
   }
