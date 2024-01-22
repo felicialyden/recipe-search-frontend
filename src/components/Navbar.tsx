@@ -55,9 +55,9 @@ const Navbar = () => {
           >
             {loggedInUser ? (
               <>
-                <li>
+                {/* <li>
                   <p className="justify-between">Profile</p>
-                </li>
+                </li> */}
                 <li onClick={() => logoutUser(loggedInUser)}>
                   <p>Logout</p>
                 </li>

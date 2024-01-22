@@ -44,7 +44,8 @@ type RecipeContextProps = {
   currentRecipe: Recipe | null;
   updateCurrentRecipe: (recipe: Recipe) => void;
   savedRecipes: SavedRecipe[];
-  updateSavedRecipes: (recipe: Recipe) => void;
+  addSavedRecipe: (recipe: Recipe, userId: string) => void;
+  removeSavedRecipe: (recipe: Recipe, userId: string) => void;
   isFavorite: (recipeId: number) => true|false
 };
 
@@ -59,7 +60,8 @@ export const RecipeContext = createContext<RecipeContextProps>({
   currentRecipe: null,
   updateCurrentRecipe: () => {},
   savedRecipes: [],
-  updateSavedRecipes: () => {},
+  addSavedRecipe: () => {},
+  removeSavedRecipe: () => {},
   isFavorite: () => false,
 });
 
@@ -68,11 +70,15 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   const [currentRecipes, setCurrentRecipes] = useState<Recipe[]>([]);
   const [currentRecipe, setCurrentRecipe] = useState<Recipe | null>(null);
   const [savedRecipes, setSavedRecipes] = useState<SavedRecipe[]>([]);
+  const url = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const getRecipe = async () => {
+      const storedUser = localStorage.getItem('loggedInUser')
+      const userIdString = JSON.parse(storedUser as string)
+
       try {
-        const savedRecipes = await fetch(`https://recipe-search-app-production.up.railway.app/api/users/2/saved`);
+        const savedRecipes = await fetch(`${url}/api/users/${userIdString}/saved`);
         const jsonRecipes = await savedRecipes.json();
         setSavedRecipes(jsonRecipes)
       } catch (error) {
@@ -111,14 +117,38 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     setCurrentRecipe(recipe);
   };
 
-  const updateSavedRecipes = async (recipe: Recipe) => {
+  const addSavedRecipe = async (recipe: Recipe, userId: string) => {
+    console.log(recipe, userId)
+    try {
+      const newSavedRecipe = {id: recipe.id, title: recipe.title, image: recipe.image}
+      const response = await fetch(`${url}/api/recipes/saved`,{
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({...newSavedRecipe, userId})
+    })
+    if(!response.ok) {
+      toast.error("Recipe could not be saved")
+      return
+    }
+      setSavedRecipes((prev) => [...prev, newSavedRecipe]);
+      toast.success('Added to saved recipes')
+  } catch (error) {
+      toast.error('Something went wrong. Please try again')
+  }
+  };
+
+  const removeSavedRecipe = async (recipe: Recipe, userId: string) => {
     try {
     const savedRecipe = savedRecipes.find((savedRecipe) => savedRecipe.id === recipe.id)
-    if(savedRecipe) {
+    if (!savedRecipe) return
+    
       const newSavedRecipes = savedRecipes.filter(
         (savedRecipe) => savedRecipe.id !== recipe.id
       );
-      const response = await fetch(`https://recipe-search-app-production.up.railway.app/api/users/2/saved`,{
+      const response = await fetch(`${url}/api/users/${userId}/saved`,{
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -135,24 +165,6 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     }
       setSavedRecipes(newSavedRecipes);
       toast.success('Removed from saved recipes')
-
-    } else {
-      const newSavedRecipe = {id: recipe.id, title: recipe.title, image: recipe.image}
-      const response = await fetch(`https://recipe-search-app-production.up.railway.app/api/users/2/saved`,{
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: "POST",
-      body: JSON.stringify(newSavedRecipe)
-    })
-    if(!response.ok) {
-      toast.error("Recipe could not be saved")
-      return
-    }
-      setSavedRecipes((prev) => [...prev, newSavedRecipe]);
-      toast.success('Added to saved recipes')
-    }
   } catch (error) {
       toast.error('Something went wrong. Please try again')
   }
@@ -178,7 +190,8 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
         currentRecipe,
         updateCurrentRecipe,
         savedRecipes,
-        updateSavedRecipes,
+        addSavedRecipe,
+        removeSavedRecipe,
         isFavorite
       }}
     >

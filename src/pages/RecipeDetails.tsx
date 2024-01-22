@@ -10,14 +10,15 @@ import { AuthContext } from "../contexts/AuthContext";
 
 const RecipeDetails = () => {
   const { recipeId } = useParams();
-  const { currentRecipe, updateCurrentRecipe, updateSavedRecipes, isFavorite } = useContext(RecipeContext);
+  const { currentRecipe, updateCurrentRecipe, addSavedRecipe, removeSavedRecipe, isFavorite } = useContext(RecipeContext);
   const { loggedInUser } = useContext(AuthContext);
+  const url = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const getRecipe = async () => {
       try {
         const recipe = await fetch(
-          `https://recipe-search-app-production.up.railway.app/api/recipes/${recipeId}`
+          `${url}/api/recipes/${recipeId}`
         );
         const jsonRecipe = await recipe.json();
         updateCurrentRecipe(jsonRecipe);
@@ -30,7 +31,12 @@ const RecipeDetails = () => {
   }, []);
   const handleSaveButtonClicked = () => {
     if(!loggedInUser) return
-    updateSavedRecipes(currentRecipe as Recipe)
+    if(isFavorite(Number(recipeId))) {
+      removeSavedRecipe(currentRecipe as Recipe, JSON.parse(loggedInUser as string))
+    } else {
+      addSavedRecipe(currentRecipe as Recipe, JSON.parse(loggedInUser as string))
+      console.log(loggedInUser)
+    }
   }
 
   return (
@@ -45,7 +51,7 @@ const RecipeDetails = () => {
       />
       <div className="flex align-center place-content-between">
       <h3 className="text-xl font-bold mb-2">{currentRecipe?.title}</h3>
-      <div className="tooltip tooltip-secondary" data-tip={loggedInUser? "Save recipe" : "Log in to save recipe"}>
+      <div className="tooltip tooltip-info" data-tip={loggedInUser? null : "Log in to save recipe"}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill={isFavorite(Number(recipeId)) && loggedInUser? "fill-black": "none"}
