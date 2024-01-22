@@ -6,10 +6,12 @@ import Instructions from "../components/Instructions";
 import BackButton from "../components/BackButton";
 import {Recipe} from "../contexts/RecipeContext"
 import toast from "react-hot-toast";
+import { AuthContext } from "../contexts/AuthContext";
 
 const RecipeDetails = () => {
   const { recipeId } = useParams();
   const { currentRecipe, updateCurrentRecipe, updateSavedRecipes, isFavorite } = useContext(RecipeContext);
+  const { loggedInUser } = useContext(AuthContext);
 
   useEffect(() => {
     const getRecipe = async () => {
@@ -27,6 +29,7 @@ const RecipeDetails = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleSaveButtonClicked = () => {
+    if(!loggedInUser) return
     updateSavedRecipes(currentRecipe as Recipe)
   }
 
@@ -42,12 +45,13 @@ const RecipeDetails = () => {
       />
       <div className="flex align-center place-content-between">
       <h3 className="text-xl font-bold mb-2">{currentRecipe?.title}</h3>
+      <div className="tooltip tooltip-secondary" data-tip={loggedInUser? "Save recipe" : "Log in to save recipe"}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        fill={isFavorite(Number(recipeId))? "fill-black": "none"}
+        fill={isFavorite(Number(recipeId)) && loggedInUser? "fill-black": "none"}
         viewBox="0 0 24 24"
         strokeWidth={2}
-        stroke="currentColor"
+        stroke={loggedInUser ? 'black' : 'grey'}
         className="w-6 h-6 cursor-pointer"
         onClick={handleSaveButtonClicked}
       >
@@ -57,6 +61,7 @@ const RecipeDetails = () => {
           d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
         />
       </svg>
+      </div>
       </div>
       <p>Servings: {currentRecipe?.servings}</p>
       <p className="mb-7">Cooking time: {currentRecipe?.readyInMinutes} min</p>
