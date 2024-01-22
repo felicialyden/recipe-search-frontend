@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
-  const { loggedInUser } = useContext(AuthContext);
+  const { loggedInUser, logoutUser } = useContext(AuthContext);
 
   return (
     <div className="navbar mb-5 p-5 bg-neutral">
@@ -56,7 +56,7 @@ const Navbar = () => {
                 <li>
                   <p className="justify-between">Profile</p>
                 </li>
-                <li>
+                <li onClick={() => logoutUser(loggedInUser)}>
                   <p>Logout</p>
                 </li>
               </>

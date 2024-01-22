@@ -17,6 +17,7 @@ type AuthContextProps = {
   updateLoginState: (state: string) => void;
   signUpUser: (email: string, password: string) => Promise<unknown>;
   loginUser: (email: string, password: string) => Promise<unknown>;
+  logoutUser: (email: string) => Promise<unknown>;
 };
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -29,6 +30,8 @@ export const AuthContext = createContext<AuthContextProps>({
   signUpUser: () => new Promise(_resolve => ''),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loginUser: () => new Promise(_resolve => ''),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  logoutUser: () => new Promise(_resolve => ''),
 });
 
 export const AuthProvider = (props: AuthContextProviderProps) => {
@@ -59,8 +62,8 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
       });
       const json = await response.json()
       console.log(json);
-      setLoggedInUser(JSON.stringify(response))
-      localStorage.setItem('loggedInUser', JSON.stringify(response))
+      setLoggedInUser(JSON.stringify(json))
+      localStorage.setItem('loggedInUser', JSON.stringify(json))
       return {success: true}
     } catch (error) {
       console.log(error);
@@ -80,8 +83,29 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
       });
       const json = await response.json()
       console.log(json);
-      setLoggedInUser(JSON.stringify(response))
-      localStorage.setItem('loggedInUser', JSON.stringify(response))
+      setLoggedInUser(JSON.stringify(json))
+      localStorage.setItem('loggedInUser', JSON.stringify(json))
+      return {success: true}
+    } catch (error) {
+      console.log(error);
+      return {success: false, error}
+    }
+  };
+
+  const logoutUser = async(email: string) => {
+    try {
+      const response = await fetch(`${url}/api/users/logout`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      const json = await response.json()
+      console.log(json);
+      setLoggedInUser(null)
+      localStorage.removeItem('loggedInUser')
       return {success: true}
     } catch (error) {
       console.log(error);
@@ -98,7 +122,8 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
         loginState,
         updateLoginState,
         signUpUser,
-        loginUser
+        loginUser,
+        logoutUser
       }}
     >
       {props.children}
