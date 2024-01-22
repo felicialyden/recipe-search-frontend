@@ -22,6 +22,7 @@ export type Recipe = {
 
 type SavedRecipe = {
   id: number;
+  recipeId?: number,
   title: string;
   image: string;
 };
@@ -80,6 +81,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
       try {
         const savedRecipes = await fetch(`${url}/api/users/${userIdString}/saved`);
         const jsonRecipes = await savedRecipes.json();
+        console.log(jsonRecipes)
         setSavedRecipes(jsonRecipes)
       } catch (error) {
         toast.error('Could not get saved recipes')
@@ -128,11 +130,13 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
       method: "POST",
       body: JSON.stringify(newSavedRecipe)
     })
+    const jsonResponse = await response.json()
+    console.log(jsonResponse)
     if(!response.ok) {
       toast.error("Recipe could not be saved")
       return
     }
-      setSavedRecipes((prev) => [...prev, newSavedRecipe]);
+      setSavedRecipes((prev) => [...prev, jsonResponse]);
       toast.success('Added to saved recipes')
   } catch (error) {
       toast.error('Something went wrong. Please try again')
@@ -141,10 +145,12 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
 
   const removeSavedRecipe = async (recipe: Recipe, userId: string) => {
     try {
-    const savedRecipe = savedRecipes.find((savedRecipe) => savedRecipe.id === recipe.id)
+    const savedRecipe = savedRecipes.find((savedRecipe) => savedRecipe.recipeId === recipe.id)
+    console.log(savedRecipe)
     if (!savedRecipe) return
+
       const newSavedRecipes = savedRecipes.filter(
-        (savedRecipe) => savedRecipe.id !== recipe.id
+        (savedRecipe) => savedRecipe.recipeId !== recipe.id
       );
       const response = await fetch(`${url}/api/users/${userId}/saved`,{
       headers: {
@@ -152,7 +158,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
         'Content-Type': 'application/json'
       },
       method: "DELETE",
-      body: JSON.stringify({id: recipe.id})
+      body: JSON.stringify({id: savedRecipe.id})
     })
     if(response.status === 401) {
       toast.error("Unauthorized action")
@@ -168,7 +174,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   };
 
   const isFavorite = (recipeId: number) => {
-    const savedRecipe = savedRecipes.find((savedRecipe) => savedRecipe.id === recipeId)
+    const savedRecipe = savedRecipes.find((savedRecipe) => savedRecipe.recipeId === recipeId)
     if(savedRecipe) {return true}
     return false
   }
