@@ -16,7 +16,7 @@ const SavedRecipes = () => {
         savedRecipes.map((recipe) => (
           <RecipePreview
             key={recipe.id}
-            id={recipe.id}
+            id={recipe.recipeId as number}
             title={recipe.title}
             img={recipe.image}
           />
