@@ -6,14 +6,14 @@ import { RecipeContext } from "../contexts/RecipeContext";
 const SavedRecipes = () => {
   const { savedRecipes } = useContext(RecipeContext);
 
-  console.log(savedRecipes);
-
   return (
     <>
       <BackButton />
       <div>
         <h3 className="text-xl my-5">Saved recipes</h3>
-        {savedRecipes.map((recipe) => (
+        {savedRecipes.length === 0 ? 
+      <p>No saved recipes</p> :
+        savedRecipes.map((recipe) => (
           <RecipePreview
             key={recipe.id}
             id={recipe.id}

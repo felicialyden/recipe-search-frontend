@@ -76,7 +76,6 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     const getRecipe = async () => {
       const storedUser = localStorage.getItem('loggedInUser')
       const userIdString = JSON.parse(storedUser as string)
-
       try {
         const savedRecipes = await fetch(`${url}/api/users/${userIdString}/saved`);
         const jsonRecipes = await savedRecipes.json();
@@ -118,7 +117,6 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   };
 
   const addSavedRecipe = async (recipe: Recipe, userId: string) => {
-    console.log(recipe, userId)
     try {
       const newSavedRecipe = {id: recipe.id, title: recipe.title, image: recipe.image}
       const response = await fetch(`${url}/api/users/${userId}/saved`,{
@@ -144,7 +142,6 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     try {
     const savedRecipe = savedRecipes.find((savedRecipe) => savedRecipe.id === recipe.id)
     if (!savedRecipe) return
-    
       const newSavedRecipes = savedRecipes.filter(
         (savedRecipe) => savedRecipe.id !== recipe.id
       );
@@ -158,7 +155,6 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     })
     if(response.status === 401) {
       toast.error("Unauthorized action")
-
     } else if(!response.ok) {
       toast.error("Something went wrong. Please try again")
       return
