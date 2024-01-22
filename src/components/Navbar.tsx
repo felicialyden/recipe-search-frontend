@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { loggedInUser } = useContext(AuthContext);
 
   return (
     <div className="navbar mb-5 p-5 bg-neutral">
@@ -51,7 +51,7 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
-            {isLoggedIn ? (
+            {loggedInUser ? (
               <>
                 <li>
                   <p className="justify-between">Profile</p>
