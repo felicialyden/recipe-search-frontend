@@ -76,6 +76,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     const getRecipe = async () => {
       const storedUser = localStorage.getItem('loggedInUser')
       const userIdString = JSON.parse(storedUser as string)
+      if(!storedUser) return
       try {
         const savedRecipes = await fetch(`${url}/api/users/${userIdString}/saved`);
         const jsonRecipes = await savedRecipes.json();
