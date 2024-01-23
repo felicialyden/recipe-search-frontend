@@ -3,3 +3,7 @@ export type Response = {
   userId?: string;
   error?: string;
 };
+
+export type IngredientList = {
+  name: string;
+};

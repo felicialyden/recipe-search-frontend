@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { IngredientList } from "../components/RecipePreview";
+import { IngredientList } from "../types";
 
 type RecipeContextProviderProps = {
   children: React.ReactNode;
@@ -133,7 +133,6 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
       body: JSON.stringify(newSavedRecipe)
     })
     const jsonResponse = await response.json()
-    console.log(jsonResponse)
     if(!response.ok) {
       toast.error("Recipe could not be saved")
       return

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import RecipeInfoPopup from "./RecipeInfoPopup";
+import { IngredientList } from "../types";
 
 type RecipePreviewProps = {
   id: number;
@@ -7,10 +8,6 @@ type RecipePreviewProps = {
   img: string;
   usedIngredientsList?: IngredientList[];
   missingIngredientsList?: IngredientList[];
-};
-
-export type IngredientList = {
-  name: string;
 };
 
 const RecipePreview = ({
@@ -36,10 +33,10 @@ const RecipePreview = ({
               <p>Ingredients used: {usedIngredientsList?.length}</p>
               <p>Ingredients missing: {missingIngredientsList?.length}</p>
             </div>
-            <RecipeInfoPopup
+            {usedIngredientsList && <RecipeInfoPopup
               usedIngredients={usedIngredientsList as IngredientList[]}
               missingIngredients={missingIngredientsList as IngredientList[]}
-            />
+            />}
           </div>
         </div>
       </li>
