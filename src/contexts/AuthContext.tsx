@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import toast from "react-hot-toast";
 
 type AuthContextProviderProps = {
   children: React.ReactNode;
@@ -107,7 +106,6 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
         body: JSON.stringify({ email }),
       });
       const json = await response.json()
-      console.log(json);
       if (json.error) {
         throw json.error
       }
@@ -115,7 +113,6 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
       localStorage.removeItem('loggedInUser')
       return {success: true}
     } catch (error) {
-      toast.error(`${error}`)
       return {success: false, error}
     }
   };

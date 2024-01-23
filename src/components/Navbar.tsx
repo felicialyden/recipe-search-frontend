@@ -3,17 +3,12 @@ import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
-
-type Response = {
-  success: boolean,
-  error?: string
-}
+import { Response } from "../types"
 
 const Navbar = () => {
   const { loggedInUser, logoutUser } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate()
-
 
   const handleLogout = async() => {
     try {
@@ -22,7 +17,6 @@ const Navbar = () => {
         throw response.error
       }
       toast.success("Successfully logged out")
-      console.log(location)
       if(location.pathname === '/saved') {
         navigate('/')
       }

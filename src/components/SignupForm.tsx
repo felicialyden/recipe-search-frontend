@@ -2,12 +2,7 @@ import { SyntheticEvent, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
-
-type Response = {
-  success: boolean,
-  error?: string
-}
+import { Response } from "../types"
 
 const SignupForm = () => {
   const { updateLoginState, signUpUser } = useContext(AuthContext)
