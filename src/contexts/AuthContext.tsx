@@ -113,7 +113,6 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
       }
       setLoggedInUser(null)
       localStorage.removeItem('loggedInUser')
-      toast.success("Successfully logged out")
       return {success: true}
     } catch (error) {
       toast.error(`${error}`)

@@ -1,10 +1,38 @@
 import { CircleUserRound } from "lucide-react";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
+import toast from "react-hot-toast";
+
+type Response = {
+  success: boolean,
+  error?: string
+}
 
 const Navbar = () => {
   const { loggedInUser, logoutUser } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate()
+
+
+  const handleLogout = async() => {
+    try {
+      const response = await logoutUser(loggedInUser as string) as Response
+      if(!response.success) {
+        throw response.error
+      }
+      toast.success("Successfully logged out")
+      console.log(location)
+      if(location.pathname === '/saved') {
+        navigate('/')
+      }
+    } catch (error) {
+      toast.error(`${error}`)
+    }
+
+
+  }
+
 
   return (
     <div className="navbar mb-5 p-5 bg-neutral">
@@ -58,7 +86,7 @@ const Navbar = () => {
                 {/* <li>
                   <p className="justify-between">Profile</p>
                 </li> */}
-                <li onClick={() => logoutUser(loggedInUser)}>
+                <li onClick={() => handleLogout()}>
                   <p>Logout</p>
                 </li>
               </>
