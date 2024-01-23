@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { RecipeContext } from "../contexts/RecipeContext";
+import { closeDropdown } from "../utils";
 
 type DropdownProps = {
   options: string[];
@@ -13,10 +14,7 @@ const Dropdown = ({ options, title }: DropdownProps) => {
   const handleSelect = (option: string) => {
     setSelectedOption(option);
     addSearchOptions(title.toLowerCase(), option);
-    const elem = document.activeElement as HTMLElement;
-    if (elem) {
-      elem?.blur();
-    }
+    closeDropdown()
   };
 
   return (

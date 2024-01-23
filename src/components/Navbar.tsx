@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 import { Response } from "../types"
+import { closeDropdown } from "../utils";
 
 const Navbar = () => {
   const { loggedInUser, logoutUser } = useContext(AuthContext);
@@ -25,12 +26,6 @@ const Navbar = () => {
       toast.error(`${error}`)
     }
   }
-
-  const closeDropdown = () => {
-    const dropdown = document.getElementById('profileDropdown')
-    dropdown?.setAttribute('open', 'false')
-  }
-
 
   return (
     <div className="navbar mb-5 p-5 bg-neutral">
@@ -90,7 +85,7 @@ const Navbar = () => {
               </>
             ) : (
               <Link to={"/login"}>
-              <li>
+              <li onClick={closeDropdown}>
                 <p>Log in</p>
               </li>
               </Link>
