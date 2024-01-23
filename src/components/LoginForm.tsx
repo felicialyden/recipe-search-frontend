@@ -17,7 +17,6 @@ const LoginForm = () => {
       const password = (form.elements.namedItem('login-password') as HTMLInputElement).value
       try {
         const response = await loginUser(username, password) as Response
-        console.log(response)
         if(!response.success) {
           throw response.error
         }
@@ -26,7 +25,6 @@ const LoginForm = () => {
         getSavedRecipes(response.userId as string)
         navigate('/')
       } catch (error) {
-        console.log(error)
         toast.error(`${error}`)
       }
     }

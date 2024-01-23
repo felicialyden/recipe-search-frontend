@@ -4,7 +4,6 @@ type RecipeInfoPopupProps = {
     missingIngredients: {name: string}[]
 }
 
-
 const RecipeInfoPopup = ({usedIngredients, missingIngredients}: RecipeInfoPopupProps) => {
 
   return (

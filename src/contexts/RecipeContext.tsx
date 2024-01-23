@@ -12,8 +12,6 @@ export type Recipe = {
   image: string;
   readyInMinutes: number;
   servings: number;
-  usedIngredientCount: number;
-  missedIngredientCount: number;
   usedIngredients: IngredientList[]
   missedIngredients: IngredientList[]
   extendedIngredients: { original: string }[];
