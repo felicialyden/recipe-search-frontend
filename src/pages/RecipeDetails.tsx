@@ -7,6 +7,7 @@ import BackButton from "../components/BackButton";
 import { Recipe } from "../contexts/RecipeContext"
 import toast from "react-hot-toast";
 import { AuthContext } from "../contexts/AuthContext";
+import PinIcon from "../components/PinIcon";
 
 const RecipeDetails = () => {
   const { recipeId } = useParams();
@@ -51,6 +52,7 @@ const RecipeDetails = () => {
       />
       <div className="flex align-center place-content-between">
       <h3 className="text-xl font-bold mb-2">{currentRecipe?.title}</h3>
+      <PinIcon recipeId={Number(recipeId)} />
       <div className="tooltip tooltip-info" data-tip={loggedInUser? null : "Log in to save recipe"}>
       <svg
         xmlns="http://www.w3.org/2000/svg"

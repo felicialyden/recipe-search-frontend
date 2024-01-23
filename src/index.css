@@ -17,6 +17,10 @@
   background-color: #FAE4C0;
 }
 
+.lucide {
+  cursor: pointer;
+}
+
 ul::-webkit-scrollbar-thumb {
   background-color: rgb(161, 155, 155);
   border: 8px solid rgba(0, 0, 0, 0);
