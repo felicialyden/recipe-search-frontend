@@ -18,7 +18,6 @@ const Home = () => {
       }
       const recipes = await fetch(`${url}/api/recipes?ingredients=${searchValues.ingredients.toString()}&cuisine=${searchValues.cuisine}&diet=${searchValues.diet}`);
       const jsonRecipes = await recipes.json();
-      console.log(jsonRecipes)
       updateCurrentRecipes(jsonRecipes.results)
       clearSearchValues()
       navigate('/search')

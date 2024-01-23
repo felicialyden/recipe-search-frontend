@@ -4,14 +4,7 @@ type AuthContextProviderProps = {
   children: React.ReactNode;
 };
 
-type User = {
-  email: string;
-  password: string;
-};
-
 type AuthContextProps = {
-  user: User | null;
-  updateUser: (userData: User) => void;
   loggedInUser: string | null
   loginState: string;
   updateLoginState: (state: string) => void;
@@ -21,8 +14,6 @@ type AuthContextProps = {
 };
 
 export const AuthContext = createContext<AuthContextProps>({
-  user: null,
-  updateUser: () => {},
   loggedInUser: null,
   loginState: "login",
   updateLoginState: () => {},
@@ -35,16 +26,11 @@ export const AuthContext = createContext<AuthContextProps>({
 });
 
 export const AuthProvider = (props: AuthContextProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
   const [loginState, setLoginState] = useState<string>("login");
   const userFromStorage = localStorage.getItem('loggedInUser')
   const [loggedInUser, setLoggedInUser] = useState<string | null>(userFromStorage || null);
 
   const url = import.meta.env.VITE_BACKEND_URL;
-
-  const updateUser = (userData: User) => {
-    setUser(userData);
-  };
 
   const updateLoginState = (state: string) => {
     setLoginState(state);
@@ -120,8 +106,6 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
   return (
     <AuthContext.Provider
       value={{
-        user,
-        updateUser,
         loggedInUser,
         loginState,
         updateLoginState,

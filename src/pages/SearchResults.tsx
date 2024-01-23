@@ -8,20 +8,22 @@ const SearchResults = () => {
 
   return (
     <div>
-        <BackButton />
+      <BackButton />
       <h2 className="text-3xl my-5">You can cook:</h2>
-      {currentRecipes.length === 0 ? 
-      <p>Could not find any matching recipes</p> :
-      currentRecipes.map((recipe) => (
-        <RecipePreview
-          key={recipe.id}
-          id={recipe.id}
-          title={recipe.title}
-          img={recipe.image}
-          usedIngredientsList={recipe.usedIngredients}
-          missingIngredientsList={recipe.missedIngredients}
-        />
-      ))}
+      {!currentRecipes.length ? (
+        <p>Could not find any matching recipes</p>
+      ) : (
+        currentRecipes.map((recipe) => (
+          <RecipePreview
+            key={recipe.id}
+            id={recipe.id}
+            title={recipe.title}
+            img={recipe.image}
+            usedIngredientsList={recipe.usedIngredients}
+            missingIngredientsList={recipe.missedIngredients}
+          />
+        ))
+      )}
     </div>
   );
 };

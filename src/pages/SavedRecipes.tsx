@@ -11,7 +11,7 @@ const SavedRecipes = () => {
       <BackButton />
       <div>
         <h3 className="text-xl my-5">Saved recipes</h3>
-        {savedRecipes.length === 0 ? 
+        {!savedRecipes.length ? 
       <p>No saved recipes</p> :
         savedRecipes.map((recipe) => (
           <RecipePreview

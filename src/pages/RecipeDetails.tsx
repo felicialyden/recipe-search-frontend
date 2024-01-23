@@ -4,7 +4,7 @@ import Ingredients from "../components/Ingredients";
 import { RecipeContext } from "../contexts/RecipeContext";
 import Instructions from "../components/Instructions";
 import BackButton from "../components/BackButton";
-import {Recipe} from "../contexts/RecipeContext"
+import { Recipe } from "../contexts/RecipeContext"
 import toast from "react-hot-toast";
 import { AuthContext } from "../contexts/AuthContext";
 
@@ -23,19 +23,20 @@ const RecipeDetails = () => {
         const jsonRecipe = await recipe.json();
         updateCurrentRecipe(jsonRecipe);
       } catch (error) {
+        console.log(error)
         toast.error('Something went wrong. Please try again')
       }
     };
     getRecipe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const handleSaveButtonClicked = () => {
     if(!loggedInUser) return
     if(isSaved(Number(recipeId))) {
       removeSavedRecipe(currentRecipe as Recipe, JSON.parse(loggedInUser as string))
     } else {
       addSavedRecipe(currentRecipe as Recipe, JSON.parse(loggedInUser as string))
-      console.log(loggedInUser)
     }
   }
 
@@ -43,7 +44,6 @@ const RecipeDetails = () => {
     <>
     <BackButton />
     <div className="max-w-lg container">
-      
       <img
         className="my-5"
         src={currentRecipe?.image}
@@ -73,11 +73,11 @@ const RecipeDetails = () => {
       <p className="mb-7">Cooking time: {currentRecipe?.readyInMinutes} min</p>
       <h4 className="text-lg font-bold my-2">Ingredients</h4>
       {currentRecipe && (
-        <Ingredients ingredients={currentRecipe?.extendedIngredients} />
+        <Ingredients ingredients={currentRecipe.extendedIngredients} />
       )}
       <h4 className="text-lg font-bold my-2">Instructions</h4>
       {currentRecipe?.analyzedInstructions[0]? 
-        <Instructions steps={currentRecipe?.analyzedInstructions[0].steps} />
+        <Instructions steps={currentRecipe.analyzedInstructions[0].steps} />
         :
         <p>No instructions available</p>
       }

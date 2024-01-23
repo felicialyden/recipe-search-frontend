@@ -15,7 +15,6 @@ const SignupForm = () => {
     const password = (form.elements.namedItem('signup-password') as HTMLInputElement).value
     try {
       const response = await signUpUser(username, password) as Response
-      console.log(response)
       if(!response.success) {
         throw response.error
       }
@@ -23,10 +22,8 @@ const SignupForm = () => {
       toast.success("Successfully signed up")
       navigate('/')
     } catch (error) {
-      console.log(error)
       toast.error(`${error}`)
     }
-
   }
 
   return (

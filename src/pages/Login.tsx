@@ -4,7 +4,6 @@ import { AuthContext } from "../contexts/AuthContext"
 import SignupForm from "../components/SignupForm"
 
 const Login = () => {
-
     const { loginState } = useContext(AuthContext)
 
   return (
