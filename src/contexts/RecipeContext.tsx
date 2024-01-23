@@ -47,7 +47,7 @@ type RecipeContextProps = {
   savedRecipes: SavedRecipe[];
   addSavedRecipe: (recipe: Recipe, userId: string) => void;
   removeSavedRecipe: (recipe: Recipe, userId: string) => void;
-  isFavorite: (recipeId: number) => true|false
+  isSaved: (recipeId: number) => true|false
   getSavedRecipes: (userId: string) => Promise<unknown>;
 };
 
@@ -64,7 +64,7 @@ export const RecipeContext = createContext<RecipeContextProps>({
   savedRecipes: [],
   addSavedRecipe: () => {},
   removeSavedRecipe: () => {},
-  isFavorite: () => false,
+  isSaved: () => false,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getSavedRecipes: () => new Promise(_resolve => ''),
 });
@@ -177,7 +177,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   }
   };
 
-  const isFavorite = (recipeId: number) => {
+  const isSaved = (recipeId: number) => {
     const savedRecipe = savedRecipes.find((savedRecipe) => savedRecipe.recipeId === recipeId)
     if(savedRecipe) {return true}
     return false
@@ -199,7 +199,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
         savedRecipes,
         addSavedRecipe,
         removeSavedRecipe,
-        isFavorite,
+        isSaved,
         getSavedRecipes
       }}
     >

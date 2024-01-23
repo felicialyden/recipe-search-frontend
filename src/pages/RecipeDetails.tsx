@@ -10,7 +10,7 @@ import { AuthContext } from "../contexts/AuthContext";
 
 const RecipeDetails = () => {
   const { recipeId } = useParams();
-  const { currentRecipe, updateCurrentRecipe, addSavedRecipe, removeSavedRecipe, isFavorite } = useContext(RecipeContext);
+  const { currentRecipe, updateCurrentRecipe, addSavedRecipe, removeSavedRecipe, isSaved } = useContext(RecipeContext);
   const { loggedInUser } = useContext(AuthContext);
   const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -31,7 +31,7 @@ const RecipeDetails = () => {
   }, []);
   const handleSaveButtonClicked = () => {
     if(!loggedInUser) return
-    if(isFavorite(Number(recipeId))) {
+    if(isSaved(Number(recipeId))) {
       removeSavedRecipe(currentRecipe as Recipe, JSON.parse(loggedInUser as string))
     } else {
       addSavedRecipe(currentRecipe as Recipe, JSON.parse(loggedInUser as string))
@@ -54,7 +54,7 @@ const RecipeDetails = () => {
       <div className="tooltip tooltip-info" data-tip={loggedInUser? null : "Log in to save recipe"}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        fill={isFavorite(Number(recipeId)) && loggedInUser? "fill-black": "none"}
+        fill={isSaved(Number(recipeId)) && loggedInUser? "fill-black": "none"}
         viewBox="0 0 24 24"
         strokeWidth={2}
         stroke={loggedInUser ? 'black' : 'grey'}
