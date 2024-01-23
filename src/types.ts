@@ -7,3 +7,7 @@ export type Response = {
 export type IngredientList = {
   name: string;
 };
+
+export type IconProps = {
+    recipeId: number
+}
