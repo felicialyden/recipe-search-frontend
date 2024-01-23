@@ -48,6 +48,7 @@ type RecipeContextProps = {
   addSavedRecipe: (recipe: Recipe, userId: string) => void;
   removeSavedRecipe: (recipe: Recipe, userId: string) => void;
   isFavorite: (recipeId: number) => true|false
+  getSavedRecipes: (userId: string) => Promise<unknown>;
 };
 
 export const RecipeContext = createContext<RecipeContextProps>({
@@ -64,6 +65,8 @@ export const RecipeContext = createContext<RecipeContextProps>({
   addSavedRecipe: () => {},
   removeSavedRecipe: () => {},
   isFavorite: () => false,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getSavedRecipes: () => new Promise(_resolve => ''),
 });
 
 export const RecipeProvider = (props: RecipeContextProviderProps) => {
@@ -73,23 +76,24 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   const [savedRecipes, setSavedRecipes] = useState<SavedRecipe[]>([]);
   const url = import.meta.env.VITE_BACKEND_URL;
 
+  const getSavedRecipes = async (userId: string) => {
+    try {
+      const savedRecipes = await fetch(`${url}/api/users/${userId}/saved`);
+      const jsonRecipes = await savedRecipes.json();
+      setSavedRecipes(jsonRecipes)
+    } catch (error) {
+      toast.error('Could not get saved recipes')
+    }
+  }
+
   useEffect(() => {
-    const getRecipe = async () => {
       const storedUser = localStorage.getItem('loggedInUser')
       const userIdString = JSON.parse(storedUser as string)
       if(!storedUser) return
-      try {
-        const savedRecipes = await fetch(`${url}/api/users/${userIdString}/saved`);
-        const jsonRecipes = await savedRecipes.json();
-        console.log(jsonRecipes)
-        setSavedRecipes(jsonRecipes)
-      } catch (error) {
-        toast.error('Could not get saved recipes')
-      }
-    }
-    getRecipe()
+      getSavedRecipes(userIdString)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
   
   const addIngredients = (value: string) => {
     const newIngredients = [...searchValues?.ingredients as string[], value]
@@ -195,7 +199,8 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
         savedRecipes,
         addSavedRecipe,
         removeSavedRecipe,
-        isFavorite
+        isFavorite,
+        getSavedRecipes
       }}
     >
       {props.children}

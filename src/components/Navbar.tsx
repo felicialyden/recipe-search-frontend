@@ -13,6 +13,7 @@ const Navbar = () => {
   const handleLogout = async() => {
     try {
       const response = await logoutUser(loggedInUser as string) as Response
+      closeDropdown()
       if(!response.success) {
         throw response.error
       }
@@ -23,8 +24,11 @@ const Navbar = () => {
     } catch (error) {
       toast.error(`${error}`)
     }
+  }
 
-
+  const closeDropdown = () => {
+    const dropdown = document.getElementById('profileDropdown')
+    dropdown?.setAttribute('open', 'false')
   }
 
 
@@ -67,8 +71,8 @@ const Navbar = () => {
                 </svg>
               </Link>
         }
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+        <div className="dropdown dropdown-end" id="profileDropdown">
+          <div tabIndex={0} role="button">
             <CircleUserRound size={32} strokeWidth={1.5} />
           </div>
           <ul

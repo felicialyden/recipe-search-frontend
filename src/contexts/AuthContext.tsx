@@ -89,7 +89,7 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
       }
       setLoggedInUser(JSON.stringify(json))
       localStorage.setItem('loggedInUser', JSON.stringify(json))
-      return {success: true}
+      return {success: true, userId: json}
     } catch (error) {
       return {success: false, error}
     }

@@ -3,9 +3,11 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Response } from "../types"
+import { RecipeContext } from "../contexts/RecipeContext";
 
 const LoginForm = () => {
     const { updateLoginState, loginUser } = useContext(AuthContext)
+    const { getSavedRecipes } = useContext(RecipeContext)
     const navigate = useNavigate()
 
     const handleLogin = async(e: SyntheticEvent) => {
@@ -21,6 +23,7 @@ const LoginForm = () => {
         }
         form.reset()
         toast.success("Successfully logged in")
+        getSavedRecipes(response.userId as string)
         navigate('/')
       } catch (error) {
         console.log(error)

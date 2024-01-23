@@ -7,7 +7,6 @@ type RecipeInfoPopupProps = {
 
 const RecipeInfoPopup = ({usedIngredients, missingIngredients}: RecipeInfoPopupProps) => {
 
-
   return (
     <div onClick={(e) => e.stopPropagation()} className="dropdown dropdown-left dropdown-top dropdown-hover tablet:dropdown-top dropdown-right">
   <div tabIndex={0} role="button" className="pt-px">
