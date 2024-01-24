@@ -6,6 +6,7 @@ import RecipeDetails from "./pages/RecipeDetails";
 import { Toaster } from "react-hot-toast";
 import SavedRecipes from "./pages/SavedRecipes";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/:recipeId" Component={RecipeDetails}></Route>
           <Route path="/saved" Component={SavedRecipes}></Route>
           <Route path="/login" Component={Login}></Route>
+          <Route path="/profile" Component={Profile}></Route>
         </Routes>
       </main>
     </BrowserRouter>

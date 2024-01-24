@@ -14,7 +14,6 @@ const Navbar = () => {
   const handleLogout = async() => {
     try {
       const response = await logoutUser(loggedInUser as string) as Response
-      closeDropdown()
       if(!response.success) {
         throw response.error
       }
@@ -58,21 +57,24 @@ const Navbar = () => {
             <CircleUserRound size={32} strokeWidth={1.5} />
           </div>
           <ul
+            onClick={closeDropdown}
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             {loggedInUser ? (
               <>
-                {/* <li>
+              <Link to={"/profile"}>
+                <li>
                   <p className="justify-between">Profile</p>
-                </li> */}
+                </li>
+                </Link>
                 <li onClick={() => handleLogout()}>
                   <p>Logout</p>
                 </li>
               </>
             ) : (
               <Link to={"/login"}>
-              <li onClick={closeDropdown}>
+              <li>
                 <p>Log in</p>
               </li>
               </Link>
