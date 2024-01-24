@@ -93,11 +93,22 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     }
   }
 
+  const getPinnedRecipes = async (userId: string) => {
+    try {
+      const savedRecipes = await fetch(`${url}/api/users/${userId}/pinned`);
+      const jsonRecipes = await savedRecipes.json();
+      setPinnedRecipes(jsonRecipes)
+    } catch (error) {
+      toast.error('Could not get pinned recipes')
+    }
+  }
+
   useEffect(() => {
       const storedUser = localStorage.getItem('loggedInUser')
       const userIdString = JSON.parse(storedUser as string)
       if(!storedUser) return
       getSavedRecipes(userIdString)
+      getPinnedRecipes(userIdString)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
