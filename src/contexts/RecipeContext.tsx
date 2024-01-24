@@ -27,10 +27,10 @@ type SavedRecipe = {
 
 type SearchValues = {
   ingredients: string[]
+  excluded: string[]
   diet?: string;
   cuisine?: string
 }
-
 
 type RecipeContextProps = {
   searchValues: SearchValues;
@@ -56,7 +56,7 @@ type RecipeContextProps = {
 };
 
 export const RecipeContext = createContext<RecipeContextProps>({
-  searchValues: {ingredients: []},
+  searchValues: {ingredients: [], excluded: []},
   addIngredients: () => {},
   excludeIngredients: () => {},
   addSearchOptions: () => {},
@@ -80,8 +80,7 @@ export const RecipeContext = createContext<RecipeContextProps>({
 });
 
 export const RecipeProvider = (props: RecipeContextProviderProps) => {
-  const [searchValues, setSearchValues] = useState<SearchValues>({ingredients: []});
-  const [excludeValues, setExcludeValues] = useState<SearchValues>({ingredients: []});
+  const [searchValues, setSearchValues] = useState<SearchValues>({ingredients: [], excluded: []});
   const [currentRecipes, setCurrentRecipes] = useState<Recipe[]>([]);
   const [currentRecipe, setCurrentRecipe] = useState<Recipe | null>(null);
   const [savedRecipes, setSavedRecipes] = useState<SavedRecipe[]>([]);
@@ -124,8 +123,8 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   };
 
   const excludeIngredients = (value: string) => {
-    const newIngredients = [...excludeValues?.ingredients as string[], value]
-    setExcludeValues({...excludeValues, ingredients: newIngredients});
+    const newExcluded = [...searchValues?.excluded as string[], value]
+    setSearchValues({...searchValues, excluded: newExcluded});
   };
 
   const addSearchOptions = (type: string, value: string) => {
@@ -133,8 +132,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   }
 
   const clearSearchValues = () => {
-    setSearchValues({ingredients: []});
-    setExcludeValues({ingredients: []});
+    setSearchValues({ingredients: [], excluded: []});
   };
 
   const removeSearchValues = (value: string) => {
@@ -145,10 +143,10 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   };
 
   const removeExcludeValues = (value: string) => {
-    const newIngredients = excludeValues.ingredients.filter(
+    const newExcluded = searchValues.excluded.filter(
       (ingredient) => ingredient !== value
     );
-    setExcludeValues({...excludeValues, ingredients: newIngredients});
+    setSearchValues({...searchValues, excluded: newExcluded});
   };
 
   const updateCurrentRecipes = (recipes: Recipe[]) => {

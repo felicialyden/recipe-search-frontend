@@ -1,33 +1,26 @@
-import { useContext } from "react";
-import { RecipeContext } from "../contexts/RecipeContext";
+import { X } from "lucide-react";
 
-const IngredientsList = () => {
-  const { searchValues, removeSearchValues } = useContext(RecipeContext);
+
+type IngredientListProps = {
+  title: string;
+  ingredients: string[];
+  removeFunction: (ingredient: string) => void;
+}
+
+const IngredientsList = ({ title, ingredients, removeFunction }: IngredientListProps) => {
 
   return (
     <ul className="mt-5">
-      {searchValues.ingredients.map((ingredient) => (
+      <h3>{`${title}: `}</h3>
+      {ingredients.map((ingredient) => (
         <li key={ingredient}>
           <div className="flex text-lg items-center gap-1" >
             <p>{ingredient}</p>
             <button
-              onClick={() => removeSearchValues(ingredient)}
+              onClick={() => removeFunction(ingredient)}
               className="btn btn-square btn-ghost btn-xs"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="3"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+             <X size={16}/>
             </button>
           </div>
           <div className="divider divider-accent m-0" key={`divider${ingredient}`}></div>
