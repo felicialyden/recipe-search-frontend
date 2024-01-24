@@ -23,7 +23,7 @@ const Home = () => {
         return;
       }
       const recipes = await fetch(
-        `${url}/api/recipes?ingredients=${searchValues.ingredients.toString()}&cuisine=${
+        `${url}/api/recipes?ingredients=${searchValues.ingredients.toString()}&exclude=${searchValues.excluded.toString()}&cuisine=${
           searchValues.cuisine
         }&diet=${searchValues.diet}`
       );
