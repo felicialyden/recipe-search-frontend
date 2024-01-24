@@ -9,7 +9,7 @@ const SavedRecipes = () => {
   return (
     <>
       <BackButton />
-      {pinnedRecipes.length && (
+      {pinnedRecipes.length > 0 && (
         <div>
           <h3 className="text-xl mt-8 mb-5 ml-2">Pinned recipes</h3>
           {pinnedRecipes.map((recipe) => (

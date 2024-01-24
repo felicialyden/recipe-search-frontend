@@ -19,7 +19,7 @@ const Home = () => {
   const handleSearchRecipes = async () => {
     try {
       if (!searchValues.ingredients.length) {
-        toast("Please add at least one ingredient");
+        toast("Please add at least one ingredient to include");
         return;
       }
       const recipes = await fetch(
