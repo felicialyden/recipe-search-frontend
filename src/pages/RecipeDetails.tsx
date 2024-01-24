@@ -41,8 +41,10 @@ const RecipeDetails = () => {
       />
       <div className="flex align-center place-content-between">
       <h3 className="text-xl font-bold mb-2">{currentRecipe?.title}</h3>
+      <div className="space-x-2">
       <PinIcon recipeId={Number(recipeId)} />
       <SaveIcon recipeId={Number(recipeId)} />
+      </div>
       </div>
       <p>Servings: {currentRecipe?.servings}</p>
       <p className="mb-7">Cooking time: {currentRecipe?.readyInMinutes} min</p>

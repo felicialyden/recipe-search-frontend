@@ -29,14 +29,20 @@ const RecipePreview = ({
         <div className="text-sm pt-3">
           <p className="font-semibold">{title}</p>
           <div className="flex gap-2 pt-2">
-            <div>
-              <p>Ingredients used: {usedIngredientsList?.length}</p>
-              <p>Ingredients missing: {missingIngredientsList?.length}</p>
-            </div>
-            {usedIngredientsList && <RecipeInfoPopup
-              usedIngredients={usedIngredientsList as IngredientList[]}
-              missingIngredients={missingIngredientsList as IngredientList[]}
-            />}
+            {usedIngredientsList && (
+              <>
+                <div>
+                  <p>Ingredients used: {usedIngredientsList?.length}</p>
+                  <p>Ingredients missing: {missingIngredientsList?.length}</p>
+                </div>
+                <RecipeInfoPopup
+                  usedIngredients={usedIngredientsList as IngredientList[]}
+                  missingIngredients={
+                    missingIngredientsList as IngredientList[]
+                  }
+                />
+              </>
+            )}
           </div>
         </div>
       </li>

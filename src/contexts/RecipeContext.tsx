@@ -43,8 +43,11 @@ type RecipeContextProps = {
   currentRecipe: Recipe | null;
   updateCurrentRecipe: (recipe: Recipe) => void;
   savedRecipes: SavedRecipe[];
+  pinnedRecipes: SavedRecipe[];
   addSavedRecipe: (recipe: Recipe, userId: string) => void;
+  addPinnedRecipe: (recipe: Recipe, userId: string) => void;
   removeSavedRecipe: (recipe: Recipe, userId: string) => void;
+  removePinnedRecipe: (recipe: Recipe, userId: string) => void;
   isSaved: (recipeId: number) => true|false
   isPinned: (recipeId: number) => true|false
   getSavedRecipes: (userId: string) => Promise<unknown>;
@@ -61,8 +64,11 @@ export const RecipeContext = createContext<RecipeContextProps>({
   currentRecipe: null,
   updateCurrentRecipe: () => {},
   savedRecipes: [],
+  pinnedRecipes: [],
   addSavedRecipe: () => {},
   removeSavedRecipe: () => {},
+  addPinnedRecipe: () => {},
+  removePinnedRecipe: () => {},
   isSaved: () => false,
   isPinned: () => false,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -74,6 +80,7 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   const [currentRecipes, setCurrentRecipes] = useState<Recipe[]>([]);
   const [currentRecipe, setCurrentRecipe] = useState<Recipe | null>(null);
   const [savedRecipes, setSavedRecipes] = useState<SavedRecipe[]>([]);
+  const [pinnedRecipes, setPinnedRecipes] = useState<SavedRecipe[]>([]);
   const url = import.meta.env.VITE_BACKEND_URL;
 
   const getSavedRecipes = async (userId: string) => {
@@ -149,7 +156,6 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   const removeSavedRecipe = async (recipe: Recipe, userId: string) => {
     try {
     const savedRecipe = savedRecipes.find((savedRecipe) => savedRecipe.recipeId === recipe.id)
-    console.log(savedRecipe)
     if (!savedRecipe) return
 
       const newSavedRecipes = savedRecipes.filter(
@@ -175,6 +181,58 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
       toast.error('Something went wrong. Please try again')
   }
   };
+  
+  const addPinnedRecipe = async (recipe: Recipe, userId: string) => {
+    console.log('add pinned')
+    try {
+      const newPinnedRecipe = {id: recipe.id, title: recipe.title, image: recipe.image}
+      const response = await fetch(`${url}/api/users/${userId}/pinned`,{
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify(newPinnedRecipe)
+    })
+    const jsonResponse = await response.json()
+    if(!response.ok) {
+      toast.error("Recipe could not be saved")
+      return
+    }
+    setPinnedRecipes((prev) => [...prev, jsonResponse]);
+      toast.success('Added to pinned recipes')
+  } catch (error) {
+      toast.error('Something went wrong. Please try again')
+  }
+  };
+
+  const removePinnedRecipe = async (recipe: Recipe, userId: string) => {
+    try {
+    const pinnedRecipe = pinnedRecipes.find((pinnedRecipe) => pinnedRecipe.recipeId === recipe.id)
+    if (!pinnedRecipe) return
+      const newPinnedRecipes = pinnedRecipes.filter(
+        (pinnedRecipe) => pinnedRecipe.recipeId !== recipe.id
+      );
+      const response = await fetch(`${url}/api/users/${userId}/pinned`,{
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "DELETE",
+      body: JSON.stringify({id: pinnedRecipe.id})
+    })
+    if(response.status === 401) {
+      toast.error("Unauthorized action")
+    } else if(!response.ok) {
+      toast.error("Something went wrong. Please try again")
+      return
+    }
+    setPinnedRecipes(newPinnedRecipes);
+      toast.success('Removed from pinned recipes')
+  } catch (error) {
+      toast.error('Something went wrong. Please try again')
+  }
+  };
 
   const isSaved = (recipeId: number) => {
     const savedRecipe = savedRecipes.find((savedRecipe) => savedRecipe.recipeId === recipeId)
@@ -183,8 +241,8 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
   }
 
   const isPinned = (recipeId: number) => {
-    const savedRecipe = savedRecipes.find((savedRecipe) => savedRecipe.recipeId === recipeId)
-    if(savedRecipe) {return true}
+    const pinnedRecipe = pinnedRecipes.find((pinnedRecipe) => pinnedRecipe.recipeId === recipeId)
+    if(pinnedRecipe) {return true}
     return false
   }
 
@@ -203,6 +261,9 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
         savedRecipes,
         addSavedRecipe,
         removeSavedRecipe,
+        pinnedRecipes,
+        addPinnedRecipe,
+        removePinnedRecipe,
         isSaved,
         isPinned,
         getSavedRecipes
