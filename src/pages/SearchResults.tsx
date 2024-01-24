@@ -9,7 +9,7 @@ const SearchResults = () => {
   return (
     <div>
       <BackButton />
-      <h2 className="text-3xl my-5">You can cook:</h2>
+      <h2 className="text-3xl my-5 ml-2">You can cook:</h2>
       {!currentRecipes.length ? (
         <p>Could not find any matching recipes</p>
       ) : (

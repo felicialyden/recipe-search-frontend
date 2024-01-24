@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 const BackButton = () => {
   const navigate = useNavigate();
   return (
-    <button className="btn btn-sm btn-secondary" onClick={() => navigate(-1)}>
+    <button className="btn btn-sm btn-secondary ml-2" onClick={() => navigate(-1)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
