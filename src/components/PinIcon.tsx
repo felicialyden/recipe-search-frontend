@@ -27,7 +27,7 @@ const PinIcon = ({ recipeId }: IconProps) => {
 
   return (
     <div
-      className="tooltip tooltip-info"
+      className="tooltip tooltip-info mt-px"
       data-tip={loggedInUser ? null : "Log in to pin recipe"}
     >
       <Pin

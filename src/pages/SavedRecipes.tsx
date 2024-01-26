@@ -25,7 +25,7 @@ const SavedRecipes = () => {
       <div>
         <h3 className="text-xl my-5 ml-2">Saved recipes</h3>
         {!savedRecipes.length ? (
-          <p>No saved recipes</p>
+          <p className="ml-2">No saved recipes</p>
         ) : (
           savedRecipes.map((recipe) => (
             <RecipePreview
