@@ -4,13 +4,13 @@ import ChangePassword from "../components/ChangePassword";
 const Profile = () => {
   return (
     <>
-      <div className="collapse collapse-arrow join-item border bg-secondary">
+      {/* <div className="collapse collapse-arrow join-item border bg-secondary">
         <input type="checkbox" name="my-accordion-2" />
         <div className="collapse-title text-lg font-medium">Add collection</div>
         <div className="collapse-content">
           <p>hello</p>
         </div>
-      </div>
+      </div> */}
       <div className="collapse collapse-arrow join-item border bg-secondary">
         <input type="checkbox" name="my-accordion-2" />
         <div className="collapse-title text-lg font-medium">
