@@ -11,6 +11,7 @@ type AuthContextProps = {
   signUpUser: (email: string, password: string) => Promise<unknown>;
   loginUser: (email: string, password: string) => Promise<unknown>;
   logoutUser: (email: string) => Promise<unknown>;
+  deleteUser: (userId: string) => Promise<unknown>;
   changePassword: (password: string, newPassword: string) => Promise<unknown>;
 };
 
@@ -24,6 +25,8 @@ export const AuthContext = createContext<AuthContextProps>({
   loginUser: () => new Promise(_resolve => ''),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   logoutUser: () => new Promise(_resolve => ''),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  deleteUser: () => new Promise(_resolve => ''),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   changePassword: () => new Promise(_resolve => ''),
 });
@@ -126,6 +129,21 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
     }
   };
 
+  const deleteUser = async(userId: string) => {
+    try {
+      const response = await fetch(`${url}/api/users/${userId}`, {
+        method: "DELETE",
+      });
+      const json = await response.json()
+      if (json.error) {
+        throw json.error
+      }
+      return {success: true}
+    } catch (error) {
+      return {success: false, error}
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -135,6 +153,7 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
         signUpUser,
         loginUser,
         logoutUser,
+        deleteUser,
         changePassword
       }}
     >
