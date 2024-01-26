@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Response } from "../types"
 import { RecipeContext } from "../contexts/RecipeContext";
+import ResetPasswordModal from "./ResetPasswordModal";
 
 const LoginForm = () => {
     const { updateLoginState, loginUser } = useContext(AuthContext)
@@ -46,6 +47,11 @@ const LoginForm = () => {
       />
       <button className="btn btn-primary max-w-xs">Log in</button>
       <p className=" mt-4">Don't have an account yet? <span className="cursor-pointer underline" onClick={() => updateLoginState('signup')}>Sign up</span></p>
+      <p className="cursor-pointer underline" 
+      onClick={() => (document.getElementById('resetPasswordModal') as HTMLDialogElement).showModal()}
+      >
+      Forgot your password?</p>
+      <ResetPasswordModal />
     </form>
   );
 };
