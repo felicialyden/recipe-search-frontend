@@ -13,6 +13,11 @@ const SignupForm = () => {
     const form = e.target as HTMLFormElement
     const username = (form.elements.namedItem('signup-username') as HTMLInputElement).value
     const password = (form.elements.namedItem('signup-password') as HTMLInputElement).value
+    const confirmPassword = (form.elements.namedItem('signup-confirm') as HTMLInputElement).value
+    if(password !== confirmPassword) {
+      toast.error('Passwords not matching')
+      return 
+  }
     try {
       const response = await signUpUser(username, password) as Response
       if(!response.success) {
@@ -39,6 +44,12 @@ const SignupForm = () => {
         type="password"
         name="signup-password"
         placeholder="Password"
+        className="input input-bordered w-full max-w-xs"
+      />
+      <input
+        type="password"
+        name="signup-confirm"
+        placeholder="Confirm password"
         className="input input-bordered w-full max-w-xs"
       />
       <button type="submit" className="btn btn-primary max-w-xs">Sign up</button>
