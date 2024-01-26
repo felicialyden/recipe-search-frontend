@@ -11,7 +11,7 @@ type AuthContextProps = {
   signUpUser: (email: string, password: string) => Promise<unknown>;
   loginUser: (email: string, password: string) => Promise<unknown>;
   logoutUser: (email: string) => Promise<unknown>;
-  deleteUser: (userId: string) => Promise<unknown>;
+  deleteUser: () => Promise<unknown>;
   changePassword: (password: string, newPassword: string) => Promise<unknown>;
 };
 
@@ -129,15 +129,17 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
     }
   };
 
-  const deleteUser = async(userId: string) => {
+  const deleteUser = async() => {
     try {
-      const response = await fetch(`${url}/api/users/${userId}`, {
+      const response = await fetch(`${url}/api/users/${JSON.parse(loggedInUser as string)}`, {
         method: "DELETE",
       });
       const json = await response.json()
       if (json.error) {
         throw json.error
       }
+      setLoggedInUser(null)
+      localStorage.removeItem('loggedInUser')
       return {success: true}
     } catch (error) {
       return {success: false, error}

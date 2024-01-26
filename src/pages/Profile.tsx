@@ -1,7 +1,28 @@
 import { Trash2 } from "lucide-react";
 import ChangePassword from "../components/ChangePassword";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import { Response } from "../types";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Profile = () => {
+  const { deleteUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleDeleteUser = async () => {
+    try {
+      const response = (await deleteUser()) as Response;
+      if (!response.success) {
+        throw response.error;
+      }
+      toast.success("Account was successfully deleted");
+      navigate("/");
+    } catch (error) {
+      toast.error(`${error}`);
+    }
+  };
+
   return (
     <>
       {/* <div className="collapse collapse-arrow join-item border bg-secondary">
@@ -20,10 +41,13 @@ const Profile = () => {
           <ChangePassword />
         </div>
       </div>
-      <button className="btn btn-sm btn-secondary mt-4">
-          <Trash2 size={16}/>
-            Delete account
-          </button>
+      <button
+        onClick={handleDeleteUser}
+        className="btn btn-sm btn-secondary mt-4"
+      >
+        <Trash2 size={16} />
+        Delete account
+      </button>
     </>
   );
 };
