@@ -13,6 +13,8 @@ type AuthContextProps = {
   logoutUser: (email: string) => Promise<unknown>;
   deleteUser: () => Promise<unknown>;
   changePassword: (password: string, newPassword: string) => Promise<unknown>;
+  resetPassword: (newPassword: string) => Promise<unknown>;
+  sendPasswordLink: (email: string) => Promise<unknown>;
 };
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -29,6 +31,10 @@ export const AuthContext = createContext<AuthContextProps>({
   deleteUser: () => new Promise(_resolve => ''),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   changePassword: () => new Promise(_resolve => ''),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  resetPassword: () => new Promise(_resolve => ''),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  sendPasswordLink: () => new Promise(_resolve => ''),
 });
 
 export const AuthProvider = (props: AuthContextProviderProps) => {
@@ -129,6 +135,47 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
     }
   };
 
+  const sendPasswordLink = async(email: string) => {
+    try {
+      const response = await fetch(`${url}/api/users/password-email`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      const json = await response.json()
+      console.log(json)
+      if (json.error) {
+        throw json.error
+      }
+      return {success: true}
+    } catch (error) {
+      return {success: false, error}
+    }
+  };
+
+  const resetPassword = async(newPassword: string) => {
+    try {
+      const response = await fetch(`${url}/api/users/password`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ newPassword }),
+      });
+      const json = await response.json()
+      if (json.error) {
+        throw json.error
+      }
+      return {success: true}
+    } catch (error) {
+      return {success: false, error}
+    }
+  };
+
   const deleteUser = async() => {
     try {
       const response = await fetch(`${url}/api/users/${JSON.parse(loggedInUser as string)}`, {
@@ -156,7 +203,9 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
         loginUser,
         logoutUser,
         deleteUser,
-        changePassword
+        changePassword,
+        resetPassword,
+        sendPasswordLink
       }}
     >
       {props.children}

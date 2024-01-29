@@ -31,6 +31,7 @@ const LoginForm = () => {
     }
 
   return (
+    <>
     <form onSubmit={handleLogin} className="flex flex-col gap-2 max-w-xs self-center w-full">
       <h1>Log in</h1>
       <input
@@ -51,8 +52,9 @@ const LoginForm = () => {
       onClick={() => (document.getElementById('resetPasswordModal') as HTMLDialogElement).showModal()}
       >
       Forgot your password?</p>
-      <ResetPasswordModal />
     </form>
+    <ResetPasswordModal />
+    </>
   );
 };
 
