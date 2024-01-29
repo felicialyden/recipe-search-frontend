@@ -14,7 +14,7 @@ const LoginForm = () => {
     const handleLogin = async(e: SyntheticEvent) => {
       e.preventDefault()
       const form = e.target as HTMLFormElement
-      const username = (form.elements.namedItem('login-username') as HTMLInputElement).value
+      const username = (form.elements.namedItem('login-email') as HTMLInputElement).value
       const password = (form.elements.namedItem('login-password') as HTMLInputElement).value
       try {
         const response = await loginUser(username, password) as Response
@@ -35,9 +35,9 @@ const LoginForm = () => {
       <h1>Log in</h1>
       <input
         type="text"
-        placeholder="Username"
+        placeholder="Email address"
         className="input input-bordered w-full w-xs"
-        name="login-username"
+        name="login-email"
       />
       <input
         type="password"

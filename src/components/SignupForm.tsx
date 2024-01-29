@@ -11,7 +11,7 @@ const SignupForm = () => {
   const handleSignup = async(e: SyntheticEvent) => {
     e.preventDefault()
     const form = e.target as HTMLFormElement
-    const username = (form.elements.namedItem('signup-username') as HTMLInputElement).value
+    const username = (form.elements.namedItem('signup-email') as HTMLInputElement).value
     const password = (form.elements.namedItem('signup-password') as HTMLInputElement).value
     const confirmPassword = (form.elements.namedItem('signup-confirm') as HTMLInputElement).value
     if(password !== confirmPassword) {
@@ -36,8 +36,8 @@ const SignupForm = () => {
       <h1>Sign up</h1>
       <input
         type="text"
-        name="signup-username"
-        placeholder="Username"
+        name="signup-email"
+        placeholder="Email address"
         className="input input-bordered w-full w-xs"
       />
       <input
