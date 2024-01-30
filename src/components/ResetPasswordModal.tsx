@@ -5,7 +5,6 @@ import toast from "react-hot-toast"
 const ResetPasswordModal = () => {
     const { sendPasswordLink } = useContext(AuthContext)
 
-
     const handleSendPasswordEmail = async(e: SyntheticEvent) => {
         e.preventDefault()
         const form = e.target as HTMLFormElement;

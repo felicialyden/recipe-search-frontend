@@ -22,7 +22,7 @@ function App() {
           <Route path="/saved" Component={SavedRecipes}></Route>
           <Route path="/login" Component={Login}></Route>
           <Route path="/profile" Component={Profile}></Route>
-          <Route path="/resetpassword" Component={ResetPassword}></Route>
+          <Route path="/reset-password" Component={ResetPassword}></Route>
         </Routes>
       </main>
     </BrowserRouter>
