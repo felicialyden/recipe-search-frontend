@@ -15,7 +15,7 @@ type AuthContextProps = {
   changePassword: (password: string, newPassword: string) => Promise<unknown>;
   resetPassword: (newPassword: string) => Promise<unknown>;
   sendPasswordLink: (email: string) => Promise<unknown>;
-  setSession: (accessToken: string, refreshToken: string) => Promise<unknown>;
+  setSession: (code: string) => Promise<unknown>;
 };
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -202,7 +202,8 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
     }
   };
 
-  const setSession = async (accessToken: string, refreshToken: string) => {
+  const setSession = async (code: string) => {
+    console.log('code', code)
     try {
       const response = await fetch(`${url}/api/auth/session`, {
         method: "POST",
@@ -210,7 +211,7 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ accessToken, refreshToken }),
+        body: JSON.stringify({ code }),
       });
       const json = await response.json();
       if (json.error) {

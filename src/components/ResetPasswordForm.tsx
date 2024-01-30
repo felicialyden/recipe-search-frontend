@@ -1,7 +1,5 @@
 import { SyntheticEvent } from "react";
 import toast from "react-hot-toast";
-// import { AuthContext } from "../contexts/AuthContext";
-// import { Response } from "../types"
 import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
 
@@ -10,9 +8,7 @@ const ResetPasswordForm = () => {
   const supabaseAnonKey = import.meta.env.VITE_SUPABASE_KEY || "";
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
   const navigate = useNavigate()
-
-  // const { resetPassword } = useContext(AuthContext)
-
+  
   const handleResetPassword = async (e: SyntheticEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;

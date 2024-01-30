@@ -18,9 +18,8 @@ const ResetPassword = () => {
     }, []);
   
     useEffect(() => {
-        console.log(accessToken, refreshToken)
       const getSessionWithTokens = async () => {
-            const response = await setSession(accessToken, refreshToken) as Response
+            const response = await setSession(refreshToken) as Response
             if (!response.success) return toast.error(`${response.error}`)
       };
         if (accessToken && refreshToken) {
