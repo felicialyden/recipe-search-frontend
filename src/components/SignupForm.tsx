@@ -1,10 +1,11 @@
-import { SyntheticEvent, useContext } from "react";
+import { SyntheticEvent, useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Response } from "../types"
 
 const SignupForm = () => {
+  const [loading, setLoading] = useState(false)
   const { updateLoginState, signUpUser } = useContext(AuthContext)
   const navigate = useNavigate()
 
@@ -19,14 +20,17 @@ const SignupForm = () => {
       return 
   }
     try {
+      setLoading(true)
       const response = await signUpUser(username, password) as Response
       if(!response.success) {
         throw response.error
       }
+      setLoading(false)
       form.reset()
       toast.success("Successfully signed up")
       navigate('/')
     } catch (error) {
+      setLoading(false)
       toast.error(`${error}`)
     }
   }
@@ -52,7 +56,10 @@ const SignupForm = () => {
         placeholder="Confirm password"
         className="input input-bordered w-full max-w-xs"
       />
-      <button type="submit" className="btn btn-primary btn-sm max-w-xs mt-2">Sign up</button>
+      <button type="submit" className="btn btn-primary btn-sm max-w-xs mt-2">
+      {loading && <span className="loading loading-spinner h-4 w-4"></span>}
+      {loading? 'Creating account': 'Sign up'}
+        </button>
       <p className=" mt-4">Already have an account? <span className="cursor-pointer underline" onClick={() => updateLoginState('login')}>Log in</span></p>
     </form>
   );

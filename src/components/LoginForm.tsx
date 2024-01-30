@@ -1,4 +1,4 @@
-import { SyntheticEvent, useContext } from "react";
+import { SyntheticEvent, useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -7,6 +7,7 @@ import { RecipeContext } from "../contexts/RecipeContext";
 import ResetPasswordModal from "./ResetPasswordModal";
 
 const LoginForm = () => {
+  const [loading, setLoading] = useState(false)
     const { updateLoginState, loginUser } = useContext(AuthContext)
     const { getSavedRecipes } = useContext(RecipeContext)
     const navigate = useNavigate()
@@ -17,15 +18,18 @@ const LoginForm = () => {
       const username = (form.elements.namedItem('login-email') as HTMLInputElement).value
       const password = (form.elements.namedItem('login-password') as HTMLInputElement).value
       try {
+        setLoading(true)
         const response = await loginUser(username, password) as Response
         if(!response.success) {
           throw response.error
         }
+        setLoading(false)
         form.reset()
         toast.success("Successfully logged in")
         getSavedRecipes(response.userId as string)
         navigate('/')
       } catch (error) {
+        setLoading(false)
         toast.error(`${error}`)
       }
     }
@@ -46,7 +50,10 @@ const LoginForm = () => {
         className="input input-bordered w-full max-w-xs"
         name="login-password"
       />
-      <button className="btn btn-primary max-w-xs btn-sm max-w-xs mt-2">Log in</button>
+      <button className="btn btn-primary max-w-xs btn-sm max-w-xs mt-2">
+      {loading && <span className="loading loading-spinner h-4 w-4"></span>}
+      {loading? 'Logging in': 'Log in'}
+       </button>
       <p className=" mt-4">Don't have an account yet? <span className="cursor-pointer underline" onClick={() => updateLoginState('signup')}>Sign up</span></p>
       <p className="cursor-pointer underline" 
       onClick={() => (document.getElementById('resetPasswordModal') as HTMLDialogElement).showModal()}

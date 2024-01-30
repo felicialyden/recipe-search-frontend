@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import IngredientsList from "../components/IngredientsList";
 import SearchRecipesForm from "../components/SearchRecipesForm";
 import { RecipeContext } from "../contexts/RecipeContext";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const Home = () => {
+  const [loading, setLoading] = useState(false);
   const {
     searchValues,
     removeSearchValues,
@@ -18,6 +19,7 @@ const Home = () => {
 
   const handleSearchRecipes = async () => {
     try {
+      setLoading(true)
       if (!searchValues.ingredients.length) {
         toast("Please add at least one ingredient to include");
         return;
@@ -28,10 +30,12 @@ const Home = () => {
         }&diet=${searchValues.diet}`
       );
       const jsonRecipes = await recipes.json();
+      setLoading(false)
       updateCurrentRecipes(jsonRecipes.results);
       clearSearchValues();
       navigate("/search");
     } catch (error) {
+      setLoading(false)
       console.log(error);
       toast.error("Something went wrong. Please try again");
     }
@@ -59,7 +63,8 @@ const Home = () => {
         onClick={handleSearchRecipes}
         className="btn btn-primary btn-sm mt-10"
       >
-        Search recipes
+      {loading && <span className="loading loading-spinner h-4 w-4"></span>}
+      {loading? 'Searching recipes': 'Search recipes'}
       </button>
     </div>
   );
