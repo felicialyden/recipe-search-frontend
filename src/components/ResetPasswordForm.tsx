@@ -21,7 +21,11 @@ const ResetPasswordForm = () => {
     if (newPassword !== confirmedPassword) {
       toast.error("New password not matching");
       return;
+    } else if(!newPassword || !confirmedPassword) {
+      toast.error("Please enter a new password");
+      return;
     }
+
     try {
       const response = resetPassword(newPassword) as unknown as Response
       if (response.error) {
@@ -50,7 +54,7 @@ const ResetPasswordForm = () => {
         placeholder="Confirm new password"
         className="input input-bordered w-full w-xs"
       />
-      <button className="btn btn-primary">
+      <button className="btn btn-primary btn-sm mt-2 max-w-xs">
         Change password
       </button>
     </form>
