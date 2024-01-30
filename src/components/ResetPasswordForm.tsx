@@ -1,14 +1,13 @@
-import { SyntheticEvent } from "react";
+import { SyntheticEvent, useContext } from "react";
 import toast from "react-hot-toast";
-import { createClient } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
+import { Response } from "../types";
 
 const ResetPasswordForm = () => {
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "";
-  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_KEY || "";
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+  const { resetPassword } = useContext(AuthContext)
   const navigate = useNavigate()
-  
+
   const handleResetPassword = async (e: SyntheticEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -24,13 +23,10 @@ const ResetPasswordForm = () => {
       return;
     }
     try {
-      const { data, error } = await supabase.auth.updateUser({
-        password: newPassword,
-      });
-      if (error) {
-        throw error;
+      const response = resetPassword(newPassword) as unknown as Response
+      if (response.error) {
+        throw response.error;
       }
-      localStorage.setItem("loggedInUser", JSON.stringify(data.user.id));
       form.reset();
       toast.success("Successfully changed password");
       navigate('/')

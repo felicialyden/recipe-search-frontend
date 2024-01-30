@@ -1,3 +1,4 @@
+import { createClient } from "@supabase/supabase-js";
 import { createContext, useState } from "react";
 
 type AuthContextProviderProps = {
@@ -162,20 +163,19 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
   };
 
   const resetPassword = async (newPassword: string) => {
-    console.log(newPassword)
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "";
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_KEY || "";
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
     try {
-      const response = await fetch(`${url}/api/users/reset-password`, {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ newPassword }),
+      const { data, error } = await supabase.auth.updateUser({
+        password: newPassword,
       });
-      const json = await response.json();
-      if (json.error) {
-        throw json.error;
+
+      if (error) {
+        throw error;
       }
+      setLoggedInUser(JSON.stringify(data));
+      localStorage.setItem("loggedInUser", JSON.stringify(data.user.id));
       return { success: true };
     } catch (error) {
       return { success: false, error };
