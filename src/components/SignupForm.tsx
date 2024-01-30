@@ -52,7 +52,7 @@ const SignupForm = () => {
         placeholder="Confirm password"
         className="input input-bordered w-full max-w-xs"
       />
-      <button type="submit" className="btn btn-primary max-w-xs">Sign up</button>
+      <button type="submit" className="btn btn-primary btn-sm max-w-xs mt-2">Sign up</button>
       <p className=" mt-4">Already have an account? <span className="cursor-pointer underline" onClick={() => updateLoginState('login')}>Log in</span></p>
     </form>
   );

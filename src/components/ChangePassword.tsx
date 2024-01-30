@@ -49,7 +49,7 @@ const ChangePassword = () => {
         placeholder="Confirm new password"
         className="input input-sm input-bordered w-full w-xs"
       />
-    <button className="btn btn-sm btn-primary max-w-xs">Change password</button>
+    <button className="btn btn-primary btn-sm max-w-xs mt-2">Change password</button>
     </form>
   )
 }

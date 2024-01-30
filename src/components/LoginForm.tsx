@@ -46,7 +46,7 @@ const LoginForm = () => {
         className="input input-bordered w-full max-w-xs"
         name="login-password"
       />
-      <button className="btn btn-primary max-w-xs">Log in</button>
+      <button className="btn btn-primary max-w-xs btn-sm max-w-xs mt-2">Log in</button>
       <p className=" mt-4">Don't have an account yet? <span className="cursor-pointer underline" onClick={() => updateLoginState('signup')}>Sign up</span></p>
       <p className="cursor-pointer underline" 
       onClick={() => (document.getElementById('resetPasswordModal') as HTMLDialogElement).showModal()}
