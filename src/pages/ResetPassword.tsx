@@ -30,10 +30,9 @@ const ResetPassword = () => {
     }, [accessToken, refreshToken]);
 
   return (
-    <>
-    <h3>Set a new password below</h3>
+    <div className='flex flex-col'>
     <ResetPasswordForm />
-    </>
+    </div>
   )
 }
 

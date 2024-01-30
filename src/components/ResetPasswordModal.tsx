@@ -17,9 +17,7 @@ const ResetPasswordModal = () => {
           toast.success("A password recovery link has been sent to your email")
         } catch (error) {
           toast.error(`${error}`)
-
         }
-
     }
 
     const closeModal = () => {
