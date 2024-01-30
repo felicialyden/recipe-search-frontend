@@ -16,7 +16,6 @@ type AuthContextProps = {
   changePassword: (password: string, newPassword: string) => Promise<unknown>;
   resetPassword: (newPassword: string) => Promise<unknown>;
   sendPasswordLink: (email: string) => Promise<unknown>;
-  setSession: (code: string) => Promise<unknown>;
 };
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -37,8 +36,6 @@ export const AuthContext = createContext<AuthContextProps>({
   resetPassword: () => new Promise((_resolve) => ""),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   sendPasswordLink: () => new Promise((_resolve) => ""),
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setSession: () => new Promise((_resolve) => ""),
 });
 
 export const AuthProvider = (props: AuthContextProviderProps) => {
@@ -202,27 +199,6 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
     }
   };
 
-  const setSession = async (code: string) => {
-    console.log('code', code)
-    try {
-      const response = await fetch(`${url}/api/auth/session`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ code }),
-      });
-      const json = await response.json();
-      if (json.error) {
-        throw json.error;
-      }
-      console.log(json)
-      return { success: true };
-    } catch (error) {
-      return { success: false, error };
-    }
-  };
 
   return (
     <AuthContext.Provider
@@ -237,7 +213,6 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
         changePassword,
         resetPassword,
         sendPasswordLink,
-        setSession
       }}
     >
       {props.children}
