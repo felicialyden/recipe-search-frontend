@@ -19,11 +19,11 @@ const Home = () => {
 
   const handleSearchRecipes = async () => {
     try {
-      setLoading(true)
       if (!searchValues.ingredients.length) {
         toast("Please add at least one ingredient to include");
         return;
       }
+      setLoading(true)
       const recipes = await fetch(
         `${url}/api/recipes?ingredients=${searchValues.ingredients.toString()}&exclude=${searchValues.excluded.toString()}&cuisine=${
           searchValues.cuisine

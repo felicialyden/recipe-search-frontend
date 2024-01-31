@@ -46,10 +46,10 @@ type RecipeContextProps = {
   updateCurrentRecipe: (recipe: Recipe) => void;
   savedRecipes: SavedRecipe[];
   pinnedRecipes: SavedRecipe[];
-  addSavedRecipe: (recipe: Recipe, userId: string) => void;
-  addPinnedRecipe: (recipe: Recipe, userId: string) => void;
-  removeSavedRecipe: (recipe: Recipe, userId: string) => void;
-  removePinnedRecipe: (recipe: Recipe, userId: string) => void;
+  addSavedRecipe: (recipe: Recipe, userId: string) => Promise<unknown>;
+  addPinnedRecipe: (recipe: Recipe, userId: string) => Promise<unknown>;
+  removeSavedRecipe: (recipe: Recipe, userId: string) => Promise<unknown>;
+  removePinnedRecipe: (recipe: Recipe, userId: string) => Promise<unknown>;
   isSaved: (recipeId: number) => true|false
   isPinned: (recipeId: number) => true|false
   getSavedRecipes: (userId: string) => Promise<unknown>;
@@ -69,10 +69,14 @@ export const RecipeContext = createContext<RecipeContextProps>({
   updateCurrentRecipe: () => {},
   savedRecipes: [],
   pinnedRecipes: [],
-  addSavedRecipe: () => {},
-  removeSavedRecipe: () => {},
-  addPinnedRecipe: () => {},
-  removePinnedRecipe: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  addSavedRecipe: () => new Promise(_resolve => ''),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  removeSavedRecipe: () => new Promise(_resolve => ''),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  addPinnedRecipe: () => new Promise(_resolve => ''),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  removePinnedRecipe: () => new Promise(_resolve => ''),
   isSaved: () => false,
   isPinned: () => false,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -171,12 +175,14 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     const jsonResponse = await response.json()
     if(!response.ok) {
       toast.error("Recipe could not be saved")
-      return
+      return {success: false}
     }
       setSavedRecipes((prev) => [...prev, jsonResponse]);
       toast.success('Added to saved recipes')
+      return {success: true}
   } catch (error) {
       toast.error('Something went wrong. Please try again')
+      return {success: false}
   }
   };
 
@@ -200,12 +206,14 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
       toast.error("Unauthorized action")
     } else if(!response.ok) {
       toast.error("Something went wrong. Please try again")
-      return
+      return {success: false}
     }
       setSavedRecipes(newSavedRecipes);
       toast.success('Removed from saved recipes')
+      return {success: true}
   } catch (error) {
       toast.error('Something went wrong. Please try again')
+      return {success: false}
   }
   };
   
@@ -224,12 +232,14 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     const jsonResponse = await response.json()
     if(!response.ok) {
       toast.error("Recipe could not be saved")
-      return
+      return {success: false}
     }
     setPinnedRecipes((prev) => [...prev, jsonResponse]);
       toast.success('Added to pinned recipes')
+      return {success: true}
   } catch (error) {
       toast.error('Something went wrong. Please try again')
+      return {success: false}
   }
   };
 
@@ -250,14 +260,18 @@ export const RecipeProvider = (props: RecipeContextProviderProps) => {
     })
     if(response.status === 401) {
       toast.error("Unauthorized action")
+      return {success: false}
     } else if(!response.ok) {
       toast.error("Something went wrong. Please try again")
-      return
+      return {success: false}
+
     }
     setPinnedRecipes(newPinnedRecipes);
       toast.success('Removed from pinned recipes')
+      return {success: true}
   } catch (error) {
       toast.error('Something went wrong. Please try again')
+      return {success: false}
   }
   };
 
