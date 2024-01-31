@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import SearchResults from "./pages/SearchResults";
@@ -11,7 +11,7 @@ import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
-    <HashRouter basename="/">
+    <BrowserRouter basename="/recipe-search-frontend/">
     <Toaster />
       <Navbar />
       <main className="p-5 bg-neutral">
@@ -25,7 +25,7 @@ function App() {
           <Route path="/reset-password" Component={ResetPassword}></Route>
         </Routes>
       </main>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
