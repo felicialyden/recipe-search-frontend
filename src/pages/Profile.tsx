@@ -4,7 +4,6 @@ import DeleteUserModal from "../components/DeleteUserModal";
 
 const Profile = () => {
 
-
   return (
     <div className="p-2 mt-6">
       <div className="collapse collapse-arrow join-item border bg-secondary">

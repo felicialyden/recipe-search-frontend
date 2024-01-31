@@ -26,7 +26,7 @@ const SignupForm = () => {
     } else if(password !== confirmPassword) {
       toast.error('Passwords not matching')
       return 
-  }
+    }
     try {
       setLoading(true)
       const response = await signUpUser(email, password) as Response

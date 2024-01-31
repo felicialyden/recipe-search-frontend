@@ -29,7 +29,7 @@ const SaveIcon = ({ recipeId }: IconProps) => {
 
   return (
     <div
-      className="tooltip tooltip-info"
+      className="tooltip tooltip-info before:w-[4rem] before:content-[attr(data-tip)]"
       data-tip={loggedInUser ? null : "Log in to save recipe"}
     >
       {loading ? (
