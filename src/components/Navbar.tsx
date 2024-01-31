@@ -18,7 +18,7 @@ const Navbar = () => {
         throw response.error
       }
       toast.success("Successfully logged out")
-      if(location.pathname === '/saved') {
+      if(location.pathname === '/saved' || location.pathname === '/profile') {
         navigate('/')
       }
     } catch (error) {

@@ -12,26 +12,34 @@ const SignupForm = () => {
   const handleSignup = async(e: SyntheticEvent) => {
     e.preventDefault()
     const form = e.target as HTMLFormElement
-    const username = (form.elements.namedItem('signup-email') as HTMLInputElement).value
+    const email = (form.elements.namedItem('signup-email') as HTMLInputElement).value
     const password = (form.elements.namedItem('signup-password') as HTMLInputElement).value
     const confirmPassword = (form.elements.namedItem('signup-confirm') as HTMLInputElement).value
-    if(password !== confirmPassword) {
+    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g
+    if (!email.match(emailRegex)){
+      document.querySelector('input[name="email"]')?.classList.add('input-error')
+      toast.error('Please enter a valid email address')
+      return
+    } else if (!email || !password || !confirmPassword) {
+      toast.error('Please fill out all fields')
+      return 
+    } else if(password !== confirmPassword) {
       toast.error('Passwords not matching')
       return 
   }
     try {
       setLoading(true)
-      const response = await signUpUser(username, password) as Response
+      const response = await signUpUser(email, password) as Response
       if(!response.success) {
         throw response.error
       }
-      setLoading(false)
       form.reset()
       toast.success("Successfully signed up")
       navigate('/')
     } catch (error) {
-      setLoading(false)
       toast.error(`${error}`)
+    } finally {
+      setLoading(false)
     }
   }
 

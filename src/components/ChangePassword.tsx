@@ -20,6 +20,10 @@ const ChangePassword = () => {
       form.elements.namedItem("change-password-confirm") as HTMLInputElement
     ).value;
 
+    if (!currentPassword || !newPassword || !confirmedPassword) {
+      toast.error('Please fill out all fields')
+      return 
+    }
     if (newPassword !== confirmedPassword) {
       toast.error("New password not matching");
       return;
@@ -33,12 +37,12 @@ const ChangePassword = () => {
       if (!response.success) {
         throw response.error;
       }
-      setLoading(false)
       form.reset();
       toast.success("Successfully changed password");
     } catch (error) {
-      setLoading(false)
       toast.error(`${error}`);
+    } finally {
+      setLoading(false)
     }
   };
 

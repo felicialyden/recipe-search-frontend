@@ -15,22 +15,26 @@ const LoginForm = () => {
     const handleLogin = async(e: SyntheticEvent) => {
       e.preventDefault()
       const form = e.target as HTMLFormElement
-      const username = (form.elements.namedItem('login-email') as HTMLInputElement).value
+      const email = (form.elements.namedItem('login-email') as HTMLInputElement).value
       const password = (form.elements.namedItem('login-password') as HTMLInputElement).value
+      if (!email || !password) {
+        toast.error('Please fill out all fields')
+        return 
+      }
       try {
         setLoading(true)
-        const response = await loginUser(username, password) as Response
+        const response = await loginUser(email, password) as Response
         if(!response.success) {
           throw response.error
         }
-        setLoading(false)
         form.reset()
         toast.success("Successfully logged in")
         getSavedRecipes(response.userId as string)
         navigate('/')
       } catch (error) {
-        setLoading(false)
         toast.error(`${error}`)
+      } finally {
+        setLoading(false)
       }
     }
 

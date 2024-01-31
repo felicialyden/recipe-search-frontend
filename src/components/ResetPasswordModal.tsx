@@ -25,7 +25,6 @@ const ResetPasswordModal = () => {
     try {
       setLoading(true)
       const response = await sendPasswordLink(email) as Response
-      setLoading(false)
       if(!response.success) {
         throw response.error
       }
@@ -35,6 +34,8 @@ const ResetPasswordModal = () => {
     } catch (error) {
       modalElement?.close()
       toast.error(`${error}`)
+    } finally {
+      setLoading(false)
     }
   }
 
