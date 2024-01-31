@@ -31,7 +31,7 @@ const RecipeDetails = () => {
   }, []);
 
   return (
-    <>
+    <div className="p-2">
     <BackButton />
     <div className="max-w-lg container">
       <img
@@ -59,7 +59,7 @@ const RecipeDetails = () => {
         <p>No instructions available</p>
       }
     </div>
-    </>
+    </div>
   );
 };
 

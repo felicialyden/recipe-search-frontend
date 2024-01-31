@@ -7,11 +7,11 @@ const SavedRecipes = () => {
   const { savedRecipes, pinnedRecipes } = useContext(RecipeContext);
 
   return (
-    <>
+    <div className="p-2">
       <BackButton />
       {pinnedRecipes.length > 0 && (
         <div>
-          <h3 className="text-xl mt-8 mb-5 ml-2">Pinned recipes</h3>
+          <h3 className="text-xl mt-8 mb-5">Pinned recipes</h3>
           {pinnedRecipes.map((recipe) => (
             <RecipePreview
               key={recipe.id}
@@ -23,7 +23,7 @@ const SavedRecipes = () => {
         </div>
       )}
       <div>
-        <h3 className="text-xl my-5 ml-2">Saved recipes</h3>
+        <h3 className="text-xl my-5">Saved recipes</h3>
         {!savedRecipes.length ? (
           <p className="ml-2">No saved recipes</p>
         ) : (
@@ -37,7 +37,7 @@ const SavedRecipes = () => {
           ))
         )}
       </div>
-    </>
+    </div>
   );
 };
 

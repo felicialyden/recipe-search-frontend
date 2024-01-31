@@ -27,7 +27,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="navbar mb-5 p-5 bg-neutral">
+    <div className="navbar pb-5 pt-7 px-7 bg-neutral">
       <div className="flex-1">
         <Link to={"/"}>
           <svg

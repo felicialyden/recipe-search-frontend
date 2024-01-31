@@ -28,8 +28,8 @@ const DeleteUserModal = () => {
       <p className="py-4">Are you sure you want to delete your account?</p>
       <div className="modal-action">
         <form method="dialog">
-          <button className="btn btn-sm mr-2">Cancel</button>
-          <button onClick={handleDeleteUser} className="btn btn-sm btn-primary">Delete account</button>
+          <button className="btn btn-sm btn-ghost mr-2">Cancel</button>
+          <button onClick={handleDeleteUser} className="btn btn-sm">Delete account</button>
         </form>
       </div>
     </div>

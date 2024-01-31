@@ -6,14 +6,7 @@ const Profile = () => {
 
 
   return (
-    <>
-      {/* <div className="collapse collapse-arrow join-item border bg-secondary">
-        <input type="checkbox" name="my-accordion-2" />
-        <div className="collapse-title text-lg font-medium">Add collection</div>
-        <div className="collapse-content">
-          <p>hello</p>
-        </div>
-      </div> */}
+    <div className="p-2 mt-6">
       <div className="collapse collapse-arrow join-item border bg-secondary">
         <input type="checkbox" name="my-accordion-2" />
         <div className="collapse-title text-lg font-medium">
@@ -31,7 +24,7 @@ const Profile = () => {
         Delete account
       </button>
       <DeleteUserModal />
-    </>
+    </div>
   );
 };
 

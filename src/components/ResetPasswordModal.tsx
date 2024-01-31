@@ -59,8 +59,8 @@ const ResetPasswordModal = () => {
       <form method="dialog" id="resetPasswordForm" className="w-full">
       <h3 className="font-bold text-lg mb-4">Reset your password</h3>
       <input onChange={handleInputChange} name="email" className="input input-bordered w-full max-w-xs input-sm mb-2" placeholder="email address"></input>
-       <p className="text-xs h-3">{errorMessage}</p>
-        <div className="flex place-content-end pr-4 mt-4">
+       <p className="text-xs h-4">{errorMessage}</p>
+        <div className="flex place-content-end pr-4 mt-6">
         <button onClick={closeModal} className="btn btn-sm btn-ghost mr-2">Cancel</button>
         <button onClick={(e) => handleSendPasswordEmail(e)} className="btn btn-sm">
           {loading && <span className="loading loading-spinner h-4 w-4"></span>}

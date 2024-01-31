@@ -13,7 +13,7 @@ const IngredientsList = ({ title, ingredients, removeFunction }: IngredientListP
     <ul className="mt-5">
       <h3>{`${title}: `}</h3>
       {ingredients.map((ingredient) => (
-        <li key={ingredient} className="rounded-md bg-secondary px-2 py-1 m-0.5 inline-block">
+        <li key={ingredient} className="rounded-md bg-secondary px-2 py-1 m-0.5 inline-block shadow">
           <div className="flex text-lg items-center gap-1" >
             <p className="text-base">{ingredient}</p>
             <button

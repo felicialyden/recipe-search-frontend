@@ -25,7 +25,7 @@ const RecipePreview = ({
         className="list-none flex mt-2 cursor-pointer"
         onClick={() => navigate(`/${id}`)}
       >
-        <img className="h-24 m-2" src={img} alt={title} />
+        <img className="h-24 mr-4 mb-2 mt-2" src={img} alt={title} />
         <div className="text-sm pt-3">
           <p className="font-semibold">{title}</p>
           <div className="flex gap-2 pt-2">

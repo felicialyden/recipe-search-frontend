@@ -62,7 +62,7 @@ const ChangePassword = () => {
         placeholder="Confirm new password"
         className="input input-sm input-bordered w-full w-xs"
       />
-      <button className="btn btn-primary btn-sm max-w-xs mt-2">
+      <button className="btn btn-primary btn-sm max-w-xs">
       {loading && <span className="loading loading-spinner h-4 w-4"></span>}
       {loading? 'Saving password': 'Change password'}
       </button>
