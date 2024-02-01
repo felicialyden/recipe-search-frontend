@@ -13,6 +13,6 @@ What can I cook is a recipe search app where you search for recipes based on wha
 
 ## Tech Stack
 
-- **Front-End**: React.js, Typescript, Tailwind CSS
-- **Back-End**: Node.js, Express, Prisma
-- **Back-End**: Supabase
+- **Frontend**: React.js, Typescript, Tailwind CSS
+- **Backend**: Node.js, Express, Prisma
+- **Database**: Supabase, Postgresql
