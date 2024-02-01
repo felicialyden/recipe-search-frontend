@@ -25,9 +25,9 @@ const ResetPasswordForm = () => {
       toast.error("Please enter a new password");
       return;
     }
-
+    
     try {
-      const response = resetPassword(newPassword) as unknown as Response
+      const response = await resetPassword(newPassword) as unknown as Response
       if (response.error) {
         throw response.error;
       }
