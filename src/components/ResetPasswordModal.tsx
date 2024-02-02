@@ -7,6 +7,7 @@ const ResetPasswordModal = () => {
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const { sendPasswordLink } = useContext(AuthContext)
+
   const handleSendPasswordEmail = async(e: SyntheticEvent) => {
     e.preventDefault()
     const form = (e.target as HTMLButtonElement).closest('form')
@@ -32,7 +33,6 @@ const ResetPasswordModal = () => {
       toast.success("A password recovery link has been sent to your email")
       modalElement?.close()
     } catch (error) {
-      modalElement?.close()
       toast.error(`${error}`)
     } finally {
       setLoading(false)

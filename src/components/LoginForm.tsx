@@ -59,10 +59,10 @@ const LoginForm = () => {
       {loading? 'Logging in': 'Log in'}
        </button>
       <p className=" mt-4">Don't have an account yet? <span className="cursor-pointer underline" onClick={() => updateLoginState('signup')}>Sign up</span></p>
-      <p className="cursor-pointer underline" 
+      {/* <p className="cursor-pointer underline" 
       onClick={() => (document.getElementById('resetPasswordModal') as HTMLDialogElement).showModal()}
       >
-      Forgot your password?</p>
+      Forgot your password?</p> */}
     </form>
     <ResetPasswordModal />
     </>

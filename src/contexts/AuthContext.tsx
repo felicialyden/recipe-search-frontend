@@ -63,7 +63,6 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
       });
       const json = await response.json();
       if (json.error) {
-        console.log("error");
         throw json.error;
       }
       setLoggedInUser(JSON.stringify(json));
@@ -149,7 +148,6 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
         body: JSON.stringify({ email }),
       });
       const json = await response.json();
-      console.log(json);
       if (json.error) {
         throw json.error;
       }
@@ -169,9 +167,10 @@ export const AuthProvider = (props: AuthContextProviderProps) => {
       });
 
       if (error) {
+        console.log(error)
         throw error;
       }
-      setLoggedInUser(JSON.stringify(data));
+      setLoggedInUser(JSON.stringify(data.user.id));
       localStorage.setItem("loggedInUser", JSON.stringify(data.user.id));
       return { success: true };
     } catch (error) {
