@@ -11,6 +11,7 @@ What can I cook is a recipe search app where you search for recipes based on wha
 - Filter recipes based on diet and cuisine
 - See how many of your ingredients each recipe is using and how many you are missing
 - Save your favorite recipes
+- Pin recipes that you want quick access to
 
 ## Tech Stack
 
